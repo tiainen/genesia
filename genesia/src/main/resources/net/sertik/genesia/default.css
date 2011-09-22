@@ -1,0 +1,11 @@
+/* 
+    Document   : default
+    Created on : 6-feb-2011, 14:55:00
+    Author     : joeri
+    Description:
+        To style things that can't be set using setters
+*/
+
+RadioButton {
+  -fx-text-fill: #f0f0f0;
+}
