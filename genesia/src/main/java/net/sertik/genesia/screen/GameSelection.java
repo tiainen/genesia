@@ -121,35 +121,35 @@ public class GameSelection extends StackPane {
     RadioButton worldCreation1 = new RadioButton("1");
     worldCreation1.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation1.setSelected(true);
-    worldCreation1.setUserData(1);
+    worldCreation1.setUserData(new FlatLandWorldGenerator(0.25).generate(1, 256));
     worldCreation1.setToggleGroup(worldCreation);
     worldCreation1.setMinWidth(120);
     worldCreation1.setMaxWidth(120);
 
     RadioButton worldCreation2 = new RadioButton("2");
     worldCreation2.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
-    worldCreation2.setUserData(2);
+    worldCreation2.setUserData(new FlatLandWorldGenerator(0.5).generate(1, 256));
     worldCreation2.setToggleGroup(worldCreation);
     worldCreation2.setMinWidth(120);
     worldCreation2.setMaxWidth(120);
 
     RadioButton worldCreation3 = new RadioButton("3");
     worldCreation3.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
-    worldCreation3.setUserData(3);
+    worldCreation3.setUserData(new FlatLandWorldGenerator(0.75).generate(1, 256));
     worldCreation3.setToggleGroup(worldCreation);
     worldCreation3.setMinWidth(120);
     worldCreation3.setMaxWidth(120);
 
     RadioButton worldCreation4 = new RadioButton("4");
     worldCreation4.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
-    worldCreation4.setUserData(4);
+    worldCreation4.setUserData(new FlatLandWorldGenerator(0.33).generate(1, 1024));
     worldCreation4.setToggleGroup(worldCreation);
     worldCreation4.setMinWidth(120);
     worldCreation4.setMaxWidth(120);
 
     RadioButton worldCreation5 = new RadioButton("5");
     worldCreation5.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
-    worldCreation5.setUserData(5);
+    worldCreation5.setUserData(new FlatLandWorldGenerator(0.33).generate(1, 4096));
     worldCreation5.setToggleGroup(worldCreation);
 
     HBox worldCreationButtons = new HBox();
@@ -217,9 +217,7 @@ public class GameSelection extends StackPane {
           game.getPlayers().add(player);
         }
 
-        World world = new FlatLandWorldGenerator(0.25).generate(1, 256);
-//        int world = (Integer) worldCreation.getSelectedToggle().getUserData();
-        game.setWorld(world);
+        game.setWorld((World) worldCreation.getSelectedToggle().getUserData());
 
         genesia.setGame(game);
       }
