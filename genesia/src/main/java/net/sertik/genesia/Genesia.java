@@ -82,8 +82,8 @@ public class Genesia extends Application {
 
   public void askNextPlayerName(int player) {
     if (player == 3 || game.getPlayers().get(player).getComputer()) {
-      Renderer renderer = new SimpleRenderer();
-//      Renderer renderer = new QuadTreeRenderer();
+//      Renderer renderer = new SimpleRenderer();
+      Renderer renderer = new QuadTreeRenderer();
       renderer.setWorld(game.getWorld());
       renderer.setResourceLoader(new PolygonResourceLoader());
 //      renderer.setResourceLoader(new ImageResourceLoader());
