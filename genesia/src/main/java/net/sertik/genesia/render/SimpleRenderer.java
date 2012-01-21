@@ -37,8 +37,8 @@ public class SimpleRenderer implements Renderer {
         Tile tile = world.getTile(i, j);
         for (GameObject object : tile.getObjects()) {
           Node node = resourceLoader.createResource(object);
-          node.setLayoutX(container.getTranslateX() + World.TILE_WIDTH / 2 * (i - j));
-          node.setLayoutY(container.getTranslateY() + World.TILE_HEIGHT / 2 * (i + j));
+          node.setLayoutX(container.getLayoutX() + World.TILE_WIDTH / 2 * (i - j));
+          node.setLayoutY(container.getLayoutY() + World.TILE_HEIGHT / 2 * (i + j));
           nodes.add(node);
         }
       }
