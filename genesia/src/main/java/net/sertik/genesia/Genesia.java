@@ -74,6 +74,7 @@ public class Genesia extends Application {
       stage.setY(stageInitialY);
       stage.setWidth(stageInitialWidth);
       stage.setHeight(stageInitialHeight);
+			introScene.setRoot(new GameSelection(this));
       stage.setScene(introScene);
     } else {
       askNextPlayerName(0);
