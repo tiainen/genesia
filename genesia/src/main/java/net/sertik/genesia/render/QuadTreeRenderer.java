@@ -86,10 +86,10 @@ public class QuadTreeRenderer implements Renderer {
         Point2D point = new Point2D(bounds.getMinX(), bounds.getMinY());
         if (bounds.intersects(checkBounds)) {
           if (! visibleNodes.containsKey(point)) {
-            Tile tile = world.getTile(0, 0);
+            Tile tile = world.getTile(parentOffsetX + x, parentOffsetY + y);
             if (! tile.getObjects().isEmpty()) {
               if (tile.getObjects().size() == 1) {
-                Node node = resourceLoader.createResource(tile.getObjects().get(0));
+								Node node = resourceLoader.createResource(tile.getObjects().get(0));
                 node.setLayoutX(point.getX());
                 node.setLayoutY(point.getY());
                 visibleNodes.put(point, node);
