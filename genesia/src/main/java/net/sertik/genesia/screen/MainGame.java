@@ -34,11 +34,12 @@ public class MainGame extends Group {
     inputCapture.setWidth(width);
     inputCapture.setHeight(height);
     inputCapture.setFill(Color.TRANSPARENT);
+		inputCapture.setFocusTraversable(true);
+		inputCapture.requestFocus();
 
     inputCapture.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent ke) {
-        System.out.println("BLEH: KeyPressed! " + ke.getCode() + ", " + KeyCode.ESCAPE);
         if (ke.getCode() == KeyCode.ESCAPE) {
           genesia.setGame(null);
         } else {
