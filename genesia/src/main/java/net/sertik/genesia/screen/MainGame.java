@@ -34,10 +34,11 @@ public class MainGame extends Group {
 	private static final int MOUSEMAP_NE = 2;
 	private static final int MOUSEMAP_SW = 3;
 	private static final int MOUSEMAP_SE = 4;
-	private int mouseMapLookupTable[][] = {};
+	private int mouseMapLookupTable[][];
 
   public MainGame(final Genesia genesia, double width, double height) {
 		// TODO: properly initialize lookup table for mouse map
+		mouseMapLookupTable = new int[World.TILE_WIDTH][World.TILE_HEIGHT];
 		for (int i = 0; i < World.TILE_WIDTH; i++) {
 			for (int j = 0; j < World.TILE_HEIGHT; j++) {
 				mouseMapLookupTable[i][j] = MOUSEMAP_CENTER;
