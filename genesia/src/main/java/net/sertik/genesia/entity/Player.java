@@ -12,7 +12,7 @@ public class Player {
     Color.WHITE, Color.BLUE, Color.ORANGE
   };
   public static final String[] NAMES = {
-    "Edward", "Karnac"
+    "Edward", "Karnac", "Mander"
   };
 
   private boolean computer;
