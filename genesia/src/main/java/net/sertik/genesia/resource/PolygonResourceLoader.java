@@ -19,7 +19,6 @@ public class PolygonResourceLoader implements ResourceLoader {
   public Node createResource(GameObject gameObject) {
     Polygon polygon = new Polygon();
     polygon.setFill(getFill(gameObject));
-    polygon.setTranslateY(-World.TILE_HEIGHT);
     polygon.getPoints().addAll(
             World.TILE_WIDTH / 2.0, 0.0,
             World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
