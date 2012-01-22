@@ -70,6 +70,7 @@ public class MainGame extends Group {
     });
 
     tilesGroup = new OrderedGroup();
+		tilesGroup.setTranslateX(width / 2);
     getChildren().addAll(tilesGroup, inputCapture);
   }
 
