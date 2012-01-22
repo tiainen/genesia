@@ -21,6 +21,8 @@ public class World {
   private String name;
   private List<Land> lands = new LinkedList<Land>();
 
+	private Tile activeTile = null;
+
   public World(int numberLands, int numberTilesPerLand) {
     this.numberLands = numberLands;
     this.numberTilesPerLand = numberTilesPerLand;
@@ -52,6 +54,17 @@ public class World {
   public void setSizeSqrt(int sizeSqrt) {
     this.sizeSqrt = sizeSqrt;
   }
+
+	public Tile getActiveTile() {
+		return activeTile;
+	}
+
+	public void setActiveTile(int worldX, int worldY) {
+		if (worldX > 0 && worldY > 0 &&
+						worldX < sizeSqrt && worldY < sizeSqrt) {
+			activeTile = getTile(worldX, worldY);
+		}
+	}
 
   public Tile getTile(int worldX, int worldY) {
     int landX = worldX / numberTilesPerLandSqrt;
