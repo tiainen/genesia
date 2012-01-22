@@ -80,7 +80,7 @@ public class QuadTreeRenderer implements Renderer {
         int x = i / width;
         int y = i % width;
         BoundingBox bounds = new BoundingBox(
-                parentMinX + (width * World.TILE_WIDTH) / 2 - World.TILE_WIDTH / 2 + World.TILE_WIDTH / 2 * (x - y),
+                parentMinX + (width * World.TILE_WIDTH) / 2 + World.TILE_WIDTH / 2 * (x - y),
                 parentMinY + World.TILE_HEIGHT / 2 * (x + y),
                 World.TILE_WIDTH, World.TILE_HEIGHT);
         Point2D point = new Point2D(bounds.getMinX(), bounds.getMinY());
