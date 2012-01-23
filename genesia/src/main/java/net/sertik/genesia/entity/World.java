@@ -60,7 +60,7 @@ public class World {
 	}
 
 	public void setActiveTile(int worldX, int worldY) {
-		if (worldX > 0 && worldY > 0 &&
+		if (worldX >= 0 && worldY >= 0 &&
 						worldX < sizeSqrt && worldY < sizeSqrt) {
 			activeTile = getTile(worldX, worldY);
 		}
