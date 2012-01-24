@@ -13,11 +13,15 @@ public class OrderedGroup extends Group {
   private Comparator<Node> comparator = new Comparator<Node>() {
     @Override
     public int compare(Node n1, Node n2) {
-      if (n1.getLayoutY() == n2.getLayoutY()) {
-        return (int) (n1.getLayoutX() - n2.getLayoutX());
-      } else {
-        return (int) (n1.getLayoutY() - n2.getLayoutY());
-      }
+			if (n1.getTranslateZ() == n2.getTranslateZ()) {
+				if (n1.getLayoutY() == n2.getLayoutY()) {
+					return (int) (n1.getLayoutX() - n2.getLayoutX());
+				} else {
+					return (int) (n1.getLayoutY() - n2.getLayoutY());
+				}
+			} else {
+				return (int) (n1.getTranslateZ() - n2.getTranslateZ());
+			}
     }
   };
 
