@@ -9,6 +9,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import net.sertik.genesia.entity.GameObject;
+import net.sertik.genesia.entity.Scenery;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.resource.ResourceLoader;
@@ -29,6 +30,8 @@ public class QuadTreeRenderer implements Renderer {
   private List<Node> visibleNodesToRemove = new LinkedList<Node>();
   private Map<Point2D, Node> visibleNodes = new HashMap<Point2D, Node>();
 
+	private Node hoverTile;
+
   @Override
   public void setResourceLoader(ResourceLoader resourceLoader) {
     this.resourceLoader = resourceLoader;
@@ -43,6 +46,7 @@ public class QuadTreeRenderer implements Renderer {
   public void render(Group container, double width, double height) {
     if (resourceLoader == null) throw new RuntimeException("No ResourceLoader specified.");
 
+		// render map
     checkBounds = new BoundingBox(
             0 - container.getTranslateX(),
             0 - container.getTranslateY(),
@@ -54,6 +58,17 @@ public class QuadTreeRenderer implements Renderer {
     container.getChildren().addAll(visibleNodesToAdd);
     container.getChildren().removeAll(visibleNodesToRemove);
     ((OrderedGroup) container).sort();
+
+		// render hover tile
+		if (world.getHoverWorldX() != -1 && world.getHoverWorldY() != -1) {
+			if (hoverTile == null) {
+				hoverTile = resourceLoader.createResource(Scenery.HOVER_TILE);
+				hoverTile.setTranslateZ(1.0);
+				container.getChildren().add(hoverTile);
+			}
+			hoverTile.setLayoutX(World.TILE_WIDTH / 2 * (world.getHoverWorldX() - world.getHoverWorldY()));
+			hoverTile.setLayoutY(World.TILE_HEIGHT / 2 * (world.getHoverWorldX() + world.getHoverWorldY()));
+		}
   }
 
   private void renderLevel(double parentMinX, double parentMinY,
@@ -90,10 +105,10 @@ public class QuadTreeRenderer implements Renderer {
             if (! tile.getObjects().isEmpty()) {
               if (tile.getObjects().size() == 1) {
 								Node node = resourceLoader.createResource(tile.getObjects().get(0));
-                node.setLayoutX(point.getX());
-                node.setLayoutY(point.getY());
-                visibleNodes.put(point, node);
-                visibleNodesToAdd.add(node);
+								node.setLayoutX(point.getX());
+								node.setLayoutY(point.getY());
+								visibleNodes.put(point, node);
+								visibleNodesToAdd.add(node);
               } else {
                 Group nodeGroup = new Group();
                 for (GameObject object : tile.getObjects()) {

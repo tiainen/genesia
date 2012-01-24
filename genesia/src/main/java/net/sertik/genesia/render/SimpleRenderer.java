@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import net.sertik.genesia.entity.GameObject;
+import net.sertik.genesia.entity.Scenery;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.resource.ResourceLoader;
@@ -16,6 +17,8 @@ import net.sertik.genesia.resource.ResourceLoader;
 public class SimpleRenderer implements Renderer {
   private ResourceLoader resourceLoader;
   private World world;
+
+	private Node hoverTile;
 
   @Override
   public void setResourceLoader(ResourceLoader resourceLoader) {
@@ -46,6 +49,17 @@ public class SimpleRenderer implements Renderer {
 			}
 
 			container.getChildren().addAll(nodes);
+		}
+
+		// render hover tile
+		if (world.getHoverWorldX() != -1 && world.getHoverWorldY() != -1) {
+			if (hoverTile == null) {
+				hoverTile = resourceLoader.createResource(Scenery.HOVER_TILE);
+				hoverTile.setTranslateZ(1.0);
+				container.getChildren().add(hoverTile);
+			}
+			hoverTile.setLayoutX(World.TILE_WIDTH / 2 * (world.getHoverWorldX() - world.getHoverWorldY()));
+			hoverTile.setLayoutY(World.TILE_HEIGHT / 2 * (world.getHoverWorldX() + world.getHoverWorldY()));
 		}
   }
 }
