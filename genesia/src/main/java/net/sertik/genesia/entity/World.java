@@ -8,8 +8,8 @@ import java.util.List;
  * @author joeri
  */
 public class World {
-  public static final int TILE_WIDTH = 32;
-  public static final int TILE_HEIGHT = 16;
+  public static final int TILE_WIDTH = 64;
+  public static final int TILE_HEIGHT = 32;
 
   private int numberLands;
   private int numberTilesPerLand;
@@ -21,7 +21,8 @@ public class World {
   private String name;
   private List<Land> lands = new LinkedList<Land>();
 
-	private Tile activeTile = null;
+	private int hoverWorldX = -1;
+	private int hoverWorldY = -1;
 
   public World(int numberLands, int numberTilesPerLand) {
     this.numberLands = numberLands;
@@ -55,15 +56,23 @@ public class World {
     this.sizeSqrt = sizeSqrt;
   }
 
-	public Tile getActiveTile() {
-		return activeTile;
+	public int getHoverWorldX() {
+		return hoverWorldX;
 	}
 
-	public void setActiveTile(int worldX, int worldY) {
+	public int getHoverWorldY() {
+		return hoverWorldY;
+	}
+
+	public boolean setHoverCoords(int worldX, int worldY) {
+		boolean changed = false;
 		if (worldX >= 0 && worldY >= 0 &&
 						worldX < sizeSqrt && worldY < sizeSqrt) {
-			activeTile = getTile(worldX, worldY);
+			changed = worldX != this.hoverWorldX || worldY != this.hoverWorldY;
+			this.hoverWorldX = worldX;
+			this.hoverWorldY = worldY;
 		}
+		return changed;
 	}
 
   public Tile getTile(int worldX, int worldY) {
