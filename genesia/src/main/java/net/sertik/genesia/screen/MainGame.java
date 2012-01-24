@@ -7,7 +7,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.RectangleBuilder;
 import net.sertik.genesia.Genesia;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.render.Renderer;
@@ -24,7 +23,6 @@ public class MainGame extends Group {
   private Renderer renderer;
 
   private OrderedGroup tilesGroup;
-	private Group grid = new Group();
 
   private double dragStartX = 0;
   private double dragStartY = 0;
@@ -34,14 +32,23 @@ public class MainGame extends Group {
 	private static final int MOUSEMAP_NE = 2;
 	private static final int MOUSEMAP_SW = 3;
 	private static final int MOUSEMAP_SE = 4;
-	private int mouseMapLookupTable[][];
+	private int mouseMapLookupTable[][] = new int[World.TILE_WIDTH][World.TILE_HEIGHT];
 
   public MainGame(final Genesia genesia, double width, double height) {
-		// TODO: properly initialize lookup table for mouse map
-		mouseMapLookupTable = new int[World.TILE_WIDTH][World.TILE_HEIGHT];
-		for (int i = 0; i < World.TILE_WIDTH; i++) {
-			for (int j = 0; j < World.TILE_HEIGHT; j++) {
-				mouseMapLookupTable[i][j] = MOUSEMAP_CENTER;
+		// initialize top half
+		for (int j = 0; j < World.TILE_HEIGHT / 2; j++) {
+			for (int i = 0; i < World.TILE_WIDTH; i++) {
+				int ri = World.TILE_WIDTH / 2;
+				if (i < ri - (j * 2) - 1) mouseMapLookupTable[i][j] = 1;
+				if (i > ri + j * 2) mouseMapLookupTable[i][j] = 2;
+			}
+		}
+		// initialize bottom half
+		for (int j = World.TILE_HEIGHT / 2; j > 0; j--) {
+			for (int i = 0; i < World.TILE_WIDTH; i++) {
+				int ri = World.TILE_WIDTH / 2;
+				if (i < ri - (j * 2) + 1) mouseMapLookupTable[i][World.TILE_HEIGHT - j] = 3;
+				if (i > ri + (j * 2) - 2) mouseMapLookupTable[i][World.TILE_HEIGHT - j] = 4;
 			}
 		}
 
@@ -54,12 +61,6 @@ public class MainGame extends Group {
     inputCapture.setFill(Color.TRANSPARENT);
 		inputCapture.setFocusTraversable(true);
 		inputCapture.requestFocus();
-
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				grid.getChildren().add(RectangleBuilder.create().fill(i % 2 == 0 ? (j % 2 == 0 ? Color.BLUE : Color.BLACK) : (j % 2 == 1 ? Color.GRAY : Color.ORANGE)).opacity(0.2).width(World.TILE_WIDTH).height(World.TILE_HEIGHT).layoutX(i * World.TILE_WIDTH).layoutY(j * World.TILE_HEIGHT).build());
-			}
-		}
 
     inputCapture.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
@@ -103,7 +104,9 @@ public class MainGame extends Group {
 					case MOUSEMAP_CENTER: break;
 				}
 
-				genesia.getGame().getWorld().setActiveTile(mapX, mapY);
+				if (genesia.getGame().getWorld().setHoverCoords(mapX, mapY)) {
+					render();
+				}
 			}
 		});
 		inputCapture.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -130,9 +133,7 @@ public class MainGame extends Group {
 
     tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX(width / 2);
-		grid.translateXProperty().bind(tilesGroup.translateXProperty());
-		grid.translateYProperty().bind(tilesGroup.translateYProperty());
-    getChildren().addAll(tilesGroup, grid, inputCapture);
+    getChildren().addAll(tilesGroup, inputCapture);
   }
 
   public void setRenderer(Renderer renderer) {
