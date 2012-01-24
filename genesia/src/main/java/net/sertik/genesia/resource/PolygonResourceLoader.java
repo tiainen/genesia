@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.StrokeType;
 import net.sertik.genesia.entity.Construction;
 import net.sertik.genesia.entity.GameObject;
 import net.sertik.genesia.entity.Recruit;
@@ -18,12 +19,20 @@ public class PolygonResourceLoader implements ResourceLoader {
   @Override
   public Node createResource(GameObject gameObject) {
     Polygon polygon = new Polygon();
-    polygon.setFill(getFill(gameObject));
     polygon.getPoints().addAll(
             World.TILE_WIDTH / 2.0, 0.0,
             World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
             World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
             0.0, World.TILE_HEIGHT / 2.0);
+		if (gameObject.equals(Scenery.HOVER_TILE)) {
+			polygon.setStrokeType(StrokeType.INSIDE);
+			polygon.getStrokeDashArray().addAll(4.0, 8.0);
+			polygon.setStroke(Color.ORANGE);
+			polygon.setStrokeWidth(2.0);
+			polygon.setFill(Color.TRANSPARENT);
+		} else {
+	    polygon.setFill(getFill(gameObject));
+		}
     return polygon;
   }
 
@@ -34,8 +43,8 @@ public class PolygonResourceLoader implements ResourceLoader {
       } else if ("tree".equals(object.getName())) {
         return Color.DARKGREEN;
       } else {
-        return Color.GREEN;
-      }
+				return Color.GREEN;
+			}
     } else if (object instanceof Construction) {
       return Color.ORANGE;
     } else if (object instanceof Recruit) {
