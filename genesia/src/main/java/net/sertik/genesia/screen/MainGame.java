@@ -1,5 +1,6 @@
 package net.sertik.genesia.screen;
 
+import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -60,6 +61,7 @@ public class MainGame extends Group {
 		inputCapture.setFocusTraversable(true);
 		inputCapture.requestFocus();
 
+		// capture keyboard events
     inputCapture.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent ke) {
@@ -70,43 +72,30 @@ public class MainGame extends Group {
         }
       }
     });
+
+		// when the mouse is moved, update the hovering tile accordingly
 		inputCapture.setOnMouseMoved(new EventHandler<MouseEvent>() {
       @Override
 			public void handle(MouseEvent me) {
-        double pickX = me.getX() - tilesGroup.getTranslateX();
-        double pickY = me.getY() - tilesGroup.getTranslateY();
-
-				int coarseMouseMapX = (int) (pickX / World.TILE_WIDTH);
-				int coarseMouseMapY = (int) (pickY / World.TILE_HEIGHT);
-				int fineMouseMapX = (int) (pickX % World.TILE_WIDTH);
-				int fineMouseMapY = (int) (pickY % World.TILE_HEIGHT);
-				if (fineMouseMapX < 0) {
-					fineMouseMapX += World.TILE_WIDTH;
-					coarseMouseMapX--;
-				}
-				if (fineMouseMapY < 0) {
-					fineMouseMapY += World.TILE_HEIGHT;
-					coarseMouseMapY--;
-				}
-
-				int mapX = coarseMouseMapX + coarseMouseMapY;
-				int mapY = -coarseMouseMapX + coarseMouseMapY;
-
-				// take fine mouse map coords into account by using the lookup
-				// table to define the final map coords
-				switch (mouseMapLookupTable[fineMouseMapX][fineMouseMapY]) {
-					case MOUSEMAP_NW: mapX--; break;
-					case MOUSEMAP_NE: mapY--; break;
-					case MOUSEMAP_SW: mapY++; break;
-					case MOUSEMAP_SE: mapX++; break;
-					case MOUSEMAP_CENTER: break;
-				}
-
-				if (genesia.getGame().getWorld().setHoverCoords(mapX, mapY)) {
+				Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
+				if (genesia.getGame().getWorld().setHoverCoords(mapCoords.x, mapCoords.y)) {
 					render();
 				}
 			}
 		});
+
+		// when the mouse is clicked, update the selected tile if there was a tile
+		inputCapture.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				if (me.isStillSincePress()) {
+					Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
+					genesia.getGame().getWorld().setSelectedTile(mapCoords.x, mapCoords.y);
+				}
+			}
+		});
+
+		// when the mouse is pressed down, keep track of the mouse position
 		inputCapture.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
@@ -114,18 +103,22 @@ public class MainGame extends Group {
         dragStartY = me.getSceneY();
       }
     });
+
+		// when the mouse is dragged, use it to update the position of the map
     inputCapture.setOnMouseDragged(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        double diffX = me.getSceneX() - dragStartX;
-        double diffY = me.getSceneY() - dragStartY;
-        if (diffX != 0 || diffY != 0) {
-          tilesGroup.setTranslateX(tilesGroup.getTranslateX() + diffX);
-          tilesGroup.setTranslateY(tilesGroup.getTranslateY() + diffY);
-          render();
-          dragStartX = me.getSceneX();
-          dragStartY = me.getSceneY();
-        }
+				if (! me.isStillSincePress()) {
+					double diffX = me.getSceneX() - dragStartX;
+					double diffY = me.getSceneY() - dragStartY;
+					if (diffX != 0 || diffY != 0) {
+						tilesGroup.setTranslateX(tilesGroup.getTranslateX() + diffX);
+						tilesGroup.setTranslateY(tilesGroup.getTranslateY() + diffY);
+						render();
+						dragStartX = me.getSceneX();
+						dragStartY = me.getSceneY();
+					}
+				}
       }
     });
 
@@ -144,6 +137,39 @@ public class MainGame extends Group {
 		getChildren().addAll(clipContainer, inputCapture);
   }
 
+	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
+		double pickX = mouseX - tilesGroup.getTranslateX();
+		double pickY = mouseY - tilesGroup.getTranslateY();
+
+		int coarseMouseMapX = (int) (pickX / World.TILE_WIDTH);
+		int coarseMouseMapY = (int) (pickY / World.TILE_HEIGHT);
+		int fineMouseMapX = (int) (pickX % World.TILE_WIDTH);
+		int fineMouseMapY = (int) (pickY % World.TILE_HEIGHT);
+		if (fineMouseMapX < 0) {
+			fineMouseMapX += World.TILE_WIDTH;
+			coarseMouseMapX--;
+		}
+		if (fineMouseMapY < 0) {
+			fineMouseMapY += World.TILE_HEIGHT;
+			coarseMouseMapY--;
+		}
+
+		int mapX = coarseMouseMapX + coarseMouseMapY;
+		int mapY = -coarseMouseMapX + coarseMouseMapY;
+
+		// take fine mouse map coords into account by using the lookup
+		// table to define the final map coords
+		switch (mouseMapLookupTable[fineMouseMapX][fineMouseMapY]) {
+			case MOUSEMAP_NW: mapX--; break;
+			case MOUSEMAP_NE: mapY--; break;
+			case MOUSEMAP_SW: mapY++; break;
+			case MOUSEMAP_SE: mapX++; break;
+			case MOUSEMAP_CENTER: break;
+		}
+
+		return new Point(mapX, mapY);
+	}
+	
   public void setRenderer(Renderer renderer) {
     this.renderer = renderer;
   }
