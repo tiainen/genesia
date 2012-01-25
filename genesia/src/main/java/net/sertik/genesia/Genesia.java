@@ -1,5 +1,7 @@
 package net.sertik.genesia;
 
+import java.awt.DisplayMode;
+import java.awt.GraphicsEnvironment;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -40,8 +42,10 @@ public class Genesia extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    screenWidth = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-    screenHeight = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		DisplayMode defaultDisplayMode = ge.getDefaultScreenDevice().getDisplayMode();
+		screenWidth = defaultDisplayMode.getWidth();
+		screenHeight = defaultDisplayMode.getHeight();
 
     Assets.initialize();
 
