@@ -48,9 +48,9 @@ public class QuadTreeRenderer implements Renderer {
 
 		// render map
     checkBounds = new BoundingBox(
-            0 - container.getTranslateX(),
+            0 - container.getTranslateX() - World.TILE_WIDTH,
             0 - container.getTranslateY(),
-            width, height + 96);
+            width + World.TILE_WIDTH, height + World.TILE_HEIGHT * 3);
     visibleNodesToAdd.clear();
     visibleNodesToRemove.clear();
     renderLevel(0 - world.getSizeSqrt() * World.TILE_WIDTH / 2, 0, 0, 0, world.getSizeSqrt());
