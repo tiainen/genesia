@@ -24,6 +24,8 @@ public class World {
 	private int hoverWorldX = -1;
 	private int hoverWorldY = -1;
 
+	private Tile selectedTile;
+
   public World(int numberLands, int numberTilesPerLand) {
     this.numberLands = numberLands;
     this.numberTilesPerLand = numberTilesPerLand;
@@ -78,6 +80,17 @@ public class World {
 
 	public int getHoverWorldY() {
 		return hoverWorldY;
+	}
+
+	public Tile getSelectedTile() {
+		return selectedTile;
+	}
+
+	public void setSelectedTile(int worldX, int worldY) {
+		if (worldX >= 0 && worldY >= 0 &&
+						worldX < sizeSqrt && worldY < sizeSqrt) {
+			selectedTile = getTile(worldX, worldY);
+		}
 	}
 
 	public boolean setHoverCoords(int worldX, int worldY) {
