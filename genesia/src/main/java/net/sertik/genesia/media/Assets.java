@@ -28,12 +28,12 @@ public class Assets {
 
   public static final int IMAGE_SCREENS_GAME_SELECTION_BACKGROUND = 2;
 
-  private static List<Image> images = new LinkedList<Image>();
+  private static List<Image> images = new LinkedList<>();
   public static List<Image> getImages() {
     return images;
   }
 
-  private static List<Font> fonts = new LinkedList<Font>();
+  private static List<Font> fonts = new LinkedList<>();
   public static List<Font> getFonts() {
     return fonts;
   }

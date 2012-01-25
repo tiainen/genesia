@@ -12,7 +12,7 @@ public class Land {
   private int x;
   private int y;
   private Player owner;
-  private List<Tile> tiles = new LinkedList<Tile>();
+  private List<Tile> tiles = new LinkedList<>();
 
   public String getName() {
     return name;

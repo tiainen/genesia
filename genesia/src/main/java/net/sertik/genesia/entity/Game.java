@@ -16,7 +16,7 @@ public class Game {
     SPRING, SUMMER, AUTUMN, WINTER
   }
 
-  private List<Player> players = new LinkedList<Player>();
+  private List<Player> players = new LinkedList<>();
   private World world;
   private Difficulty difficulty = Difficulty.NORMAL;
   private Season season = Season.AUTUMN;

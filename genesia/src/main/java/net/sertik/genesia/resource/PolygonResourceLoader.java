@@ -38,12 +38,13 @@ public class PolygonResourceLoader implements ResourceLoader {
 
   private Paint getFill(GameObject object) {
     if (object instanceof Scenery) {
-      if ("grass".equals(object.getName())) {
-        return Color.LIGHTGREEN;
-      } else if ("tree".equals(object.getName())) {
-        return Color.DARKGREEN;
-      } else {
-				return Color.GREEN;
+			switch (object.getName()) {
+				case "grass":
+					return Color.LIGHTGREEN;
+				case "tree":
+					return Color.DARKGREEN;
+				default:
+					return Color.GREEN;
 			}
     } else if (object instanceof Construction) {
       return Color.ORANGE;

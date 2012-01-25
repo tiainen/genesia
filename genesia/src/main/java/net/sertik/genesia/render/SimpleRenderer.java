@@ -35,7 +35,7 @@ public class SimpleRenderer implements Renderer {
     if (resourceLoader == null) throw new RuntimeException("No ResourceLoader specified.");
 
 		if (container.getChildren().isEmpty()) {
-			List<Node> nodes = new LinkedList<Node>();
+			List<Node> nodes = new LinkedList<>();
 			for (int i = 0; i < world.getSizeSqrt(); i++) {
 				for (int j = 0; j < world.getSizeSqrt(); j++) {
 					Tile tile = world.getTile(i, j);
