@@ -56,8 +56,6 @@ public class MainGame extends Group {
     this.height = height;
 
     Rectangle inputCapture = new Rectangle();
-    inputCapture.setWidth(width);
-    inputCapture.setHeight(height);
     inputCapture.setFill(Color.TRANSPARENT);
 		inputCapture.setFocusTraversable(true);
 		inputCapture.requestFocus();
@@ -133,7 +131,17 @@ public class MainGame extends Group {
 
     tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX(width / 2);
-    getChildren().addAll(tilesGroup, inputCapture);
+
+		// clipping container for rendered land
+		Group clipContainer = new Group();
+		clipContainer.setClip(new Rectangle(width - 250, height - 200));
+		clipContainer.getChildren().add(tilesGroup);
+
+		// land can only be dragged by the size of the container
+		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
+    inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
+
+		getChildren().addAll(clipContainer, inputCapture);
   }
 
   public void setRenderer(Renderer renderer) {
