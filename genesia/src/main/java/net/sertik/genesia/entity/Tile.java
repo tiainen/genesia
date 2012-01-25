@@ -11,7 +11,7 @@ public class Tile {
   private int x;
   private int y;
   private Land land;
-  private List<GameObject> objects = new LinkedList<GameObject>();
+  private List<GameObject> objects = new LinkedList<>();
 
   public int getX() {
     return x;

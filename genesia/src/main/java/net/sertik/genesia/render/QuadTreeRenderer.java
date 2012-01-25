@@ -26,9 +26,9 @@ public class QuadTreeRenderer implements Renderer {
   private int minTilesWidth = 4;
 
   private BoundingBox checkBounds;
-  private List<Node> visibleNodesToAdd = new LinkedList<Node>();
-  private List<Node> visibleNodesToRemove = new LinkedList<Node>();
-  private Map<Point2D, Node> visibleNodes = new HashMap<Point2D, Node>();
+  private List<Node> visibleNodesToAdd = new LinkedList<>();
+  private List<Node> visibleNodesToRemove = new LinkedList<>();
+  private Map<Point2D, Node> visibleNodes = new HashMap<>();
 
 	private Node hoverTile;
 
@@ -131,7 +131,7 @@ public class QuadTreeRenderer implements Renderer {
   }
 
   private void deleteRemainingNodes() {
-    List<Point2D> visiblePointsToRemove = new LinkedList<Point2D>();
+    List<Point2D> visiblePointsToRemove = new LinkedList<>();
     for (Point2D point : visibleNodes.keySet()) {
       BoundingBox bounds = new BoundingBox(
               point.getX(), point.getY(),

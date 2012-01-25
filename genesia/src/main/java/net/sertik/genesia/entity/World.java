@@ -19,7 +19,7 @@ public class World {
   private int numberTilesPerLandSqrt;
 
   private String name;
-  private List<Land> lands = new LinkedList<Land>();
+  private List<Land> lands = new LinkedList<>();
 
 	private int hoverWorldX = -1;
 	private int hoverWorldY = -1;
@@ -47,6 +47,22 @@ public class World {
   public void setName(String name) {
     this.name = name;
   }
+
+	public int getNumberLands() {
+		return numberLands;
+	}
+
+	public void setNumberLands(int numberLands) {
+		this.numberLands = numberLands;
+	}
+
+	public int getNumberTilesPerLand() {
+		return numberTilesPerLand;
+	}
+
+	public void setNumberTilesPerLand(int numberTilesPerLand) {
+		this.numberTilesPerLand = numberTilesPerLand;
+	}
 
   public int getSizeSqrt() {
     return sizeSqrt;
