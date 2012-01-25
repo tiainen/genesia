@@ -8,8 +8,8 @@ import java.util.List;
  * @author joeri
  */
 public class World {
-  public static final int TILE_WIDTH = 64;
-  public static final int TILE_HEIGHT = 32;
+  public static final int TILE_WIDTH = 128;
+  public static final int TILE_HEIGHT = 64;
 
   private int numberLands;
   private int numberTilesPerLand;

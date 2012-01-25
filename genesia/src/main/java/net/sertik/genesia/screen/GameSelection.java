@@ -218,7 +218,7 @@ public class GameSelection extends StackPane {
         }
 
 				WorldGenerator worldGenerator = (WorldGenerator) worldCreation.getSelectedToggle().getUserData();
-        game.setWorld(worldGenerator.generate(4, 1024));
+        game.setWorld(worldGenerator.generate(64, 256));
 
         genesia.setGame(game);
       }
