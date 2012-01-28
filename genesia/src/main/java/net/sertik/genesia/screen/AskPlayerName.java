@@ -38,7 +38,6 @@ public class AskPlayerName extends StackPane {
     label.setTextFill(Color.LIGHTGRAY);
 
     final TextField name = new TextField();
-//    name.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
     name.setPrefColumnCount(15);
     name.setText("Player " + (position + 1));
     name.setOnAction(new EventHandler<ActionEvent>() {

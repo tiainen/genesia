@@ -11,7 +11,7 @@ RadioButton {
 }
 
 TextField {
-	font-family: "Courier New";
-	font-size: 16px;
-	font-weight: bold;
+	-fx-font-family: "Courier New";
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
 }
