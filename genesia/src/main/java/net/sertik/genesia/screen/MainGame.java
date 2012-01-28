@@ -13,7 +13,7 @@ import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.render.Renderer;
 import net.sertik.genesia.ui.OrderedGroup;
-import net.sertik.genesia.ui.TileNode;
+import net.sertik.genesia.ui.TileWithDescriptionNode;
 
 /**
  *
@@ -27,7 +27,7 @@ public class MainGame extends Group {
 
   private OrderedGroup tilesGroup;
 
-	private Group selectedTileGroup;
+	private TileWithDescriptionNode selectedTileInfo;
 
   private double dragStartX = 0;
   private double dragStartY = 0;
@@ -96,10 +96,9 @@ public class MainGame extends Group {
 					Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
 					if (genesia.getGame().getWorld().isPointWithinBounds(mapCoords.x, mapCoords.y)) {
 						Tile selectedTile = genesia.getGame().getWorld().getTile(mapCoords.x, mapCoords.y);
-						if (selectedTileGroup.getChildren().isEmpty() ||
-										! selectedTile.equals(((TileNode) selectedTileGroup.getChildren().get(0)).getTile())) {
-							selectedTileGroup.getChildren().clear();
-							selectedTileGroup.getChildren().add(renderer.getResourceLoader().createResource(selectedTile));
+						if (selectedTileInfo.getTileNode() == null ||
+										! selectedTile.equals(selectedTileInfo.getTileNode().getTile())) {
+							selectedTileInfo.setTileNode(renderer.getResourceLoader().createResource(selectedTile));
 						}
 					}
 				}
@@ -145,11 +144,11 @@ public class MainGame extends Group {
 		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
     inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
 
-		selectedTileGroup = new Group();
-		selectedTileGroup.setLayoutX(width - 200);
-		selectedTileGroup.setLayoutY(50);
+		selectedTileInfo = new TileWithDescriptionNode();
+		selectedTileInfo.setLayoutX(width - 200);
+		selectedTileInfo.setLayoutY(50);
 
-		getChildren().addAll(clipContainer, selectedTileGroup, inputCapture);
+		getChildren().addAll(clipContainer, selectedTileInfo, inputCapture);
   }
 
 	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {

@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Land {
   private String name;
+	private World world;
   private int x;
   private int y;
   private Player owner;
@@ -21,6 +22,14 @@ public class Land {
   public void setName(String name) {
     this.name = name;
   }
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
 
   public int getX() {
     return x;

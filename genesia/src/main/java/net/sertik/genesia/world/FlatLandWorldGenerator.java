@@ -35,6 +35,7 @@ public class FlatLandWorldGenerator implements WorldGenerator {
         land.setX(x);
         land.setY(y);
         land.setName(StringUtil.getSecureRandomString(8));
+				land.setWorld(world);
 
         for (int lx = 0; lx < numberTilesSqrt; lx++) {
           for (int ly = 0; ly < numberTilesSqrt; ly++) {
