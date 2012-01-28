@@ -4,31 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import net.sertik.genesia.entity.GameObject;
 import net.sertik.genesia.entity.Scenery;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
-import net.sertik.genesia.resource.ResourceLoader;
+import net.sertik.genesia.ui.TileNode;
 
 /**
  *
  * @author Joeri
  */
-public class SimpleRenderer implements Renderer {
-  private ResourceLoader resourceLoader;
-  private World world;
-
+public class SimpleRenderer extends Renderer {
 	private Node hoverTile;
-
-  @Override
-  public void setResourceLoader(ResourceLoader resourceLoader) {
-    this.resourceLoader = resourceLoader;
-  }
-
-  @Override
-  public void setWorld(World world) {
-    this.world = world;
-  }
 
   @Override
   public void render(Group container, double width, double height) {
@@ -39,8 +25,8 @@ public class SimpleRenderer implements Renderer {
 			for (int i = 0; i < world.getSizeSqrt(); i++) {
 				for (int j = 0; j < world.getSizeSqrt(); j++) {
 					Tile tile = world.getTile(i, j);
-					for (GameObject object : tile.getObjects()) {
-						Node node = resourceLoader.createResource(object);
+					TileNode node = resourceLoader.createResource(tile);
+					if (node != null) {
 						node.setLayoutX(World.TILE_WIDTH / 2 * (i - j));
 						node.setLayoutY(World.TILE_HEIGHT / 2 * (i + j));
 						nodes.add(node);

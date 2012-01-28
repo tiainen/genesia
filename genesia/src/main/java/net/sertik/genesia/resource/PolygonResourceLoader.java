@@ -15,7 +15,7 @@ import net.sertik.genesia.entity.World;
  *
  * @author joeri
  */
-public class PolygonResourceLoader implements ResourceLoader {
+public class PolygonResourceLoader extends ResourceLoader {
   @Override
   public Node createResource(GameObject gameObject) {
     Polygon polygon = new Polygon();

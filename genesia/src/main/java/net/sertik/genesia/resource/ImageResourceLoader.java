@@ -15,7 +15,7 @@ import net.sertik.genesia.media.Assets;
  *
  * @author joeri
  */
-public class ImageResourceLoader implements ResourceLoader {
+public class ImageResourceLoader extends ResourceLoader {
   @Override
   public Node createResource(GameObject object) {
 		if (object.equals(Scenery.HOVER_TILE)) {

@@ -8,10 +8,25 @@ import net.sertik.genesia.resource.ResourceLoader;
  *
  * @author Joeri
  */
-public interface Renderer {
-  public void setResourceLoader(ResourceLoader resourceLoader);
+public abstract class Renderer {
+	protected ResourceLoader resourceLoader;
+	protected World world;
 
-  public void setWorld(World world);
+	public ResourceLoader getResourceLoader() {
+		return resourceLoader;
+	}
 
-  public void render(Group container, double width, double height);
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		this.resourceLoader = resourceLoader;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+  public abstract void render(Group container, double width, double height);
 }
