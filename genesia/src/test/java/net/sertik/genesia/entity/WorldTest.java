@@ -16,6 +16,8 @@ public class WorldTest {
 		assertEquals(world.getNumberLands(), 4);
 		assertEquals(world.getNumberTilesPerLand(), 16);
 		assertEquals(world.getSizeSqrt(), 8);
+		assertEquals(world.getNumberLandsSqrt(), 2);
+		assertEquals(world.getNumberTilesPerLandSqrt(), 4);
 	}
 
 	@Test

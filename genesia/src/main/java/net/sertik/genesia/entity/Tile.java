@@ -47,6 +47,22 @@ public class Tile {
   }
 
 	@Override
+	public String toString() {
+		if (! objects.isEmpty()) {
+			int worldX = x + getLand().getX() * getLand().getWorld().getNumberTilesPerLandSqrt();
+			int worldY = y + getLand().getY() * getLand().getWorld().getNumberTilesPerLandSqrt();
+
+			GameObject last = objects.get(objects.size() - 1);
+
+			StringBuilder builder = new StringBuilder();
+			builder.append(last.getName()).append(" [").append(worldX).append(", ").append(worldY).append("]");
+			return builder.toString();
+		} else {
+			return super.toString();
+		}
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;

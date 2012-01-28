@@ -70,6 +70,14 @@ public class World {
     return sizeSqrt;
   }
 
+	public int getNumberLandsSqrt() {
+		return numberLandsSqrt;
+	}
+
+	public int getNumberTilesPerLandSqrt() {
+		return numberTilesPerLandSqrt;
+	}
+
 	/**
 	 * Checks whether the provided coordinates are within the bounds of the world.
 	 *
