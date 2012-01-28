@@ -53,4 +53,30 @@ public class Land {
   public void setTiles(List<Tile> tiles) {
     this.tiles = tiles;
   }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Land other = (Land) obj;
+		if (this.x != other.x) {
+			return false;
+		}
+		if (this.y != other.y) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 89 * hash + this.x;
+		hash = 89 * hash + this.y;
+		return hash;
+	}
 }

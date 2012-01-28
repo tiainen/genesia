@@ -24,8 +24,6 @@ public class World {
 	private int hoverWorldX = -1;
 	private int hoverWorldY = -1;
 
-	private Tile selectedTile;
-
   public World(int numberLands, int numberTilesPerLand) {
     this.numberLands = numberLands;
     this.numberTilesPerLand = numberTilesPerLand;
@@ -39,7 +37,9 @@ public class World {
   }
 
   public void setLands(List<Land> lands) {
-    this.lands = lands;
+		if (lands.size() == numberLands) {
+			this.lands = lands;
+		}
   }
 
   public String getName() {
@@ -70,9 +70,19 @@ public class World {
     return sizeSqrt;
   }
 
-  public void setSizeSqrt(int sizeSqrt) {
-    this.sizeSqrt = sizeSqrt;
-  }
+	/**
+	 * Checks whether the provided coordinates are within the bounds of the world.
+	 *
+	 * @param worldX the x coordinate
+	 * @param worldY the y coordinate
+	 * @return true if the provided coordinates lie within the world bounds
+	 */
+	public boolean isPointWithinBounds(int worldX, int worldY) {
+		return worldX >= 0 &&
+						worldY >= 0 &&
+						worldX < sizeSqrt &&
+						worldY < sizeSqrt;
+	}
 
 	public int getHoverWorldX() {
 		return hoverWorldX;
@@ -82,21 +92,9 @@ public class World {
 		return hoverWorldY;
 	}
 
-	public Tile getSelectedTile() {
-		return selectedTile;
-	}
-
-	public void setSelectedTile(int worldX, int worldY) {
-		if (worldX >= 0 && worldY >= 0 &&
-						worldX < sizeSqrt && worldY < sizeSqrt) {
-			selectedTile = getTile(worldX, worldY);
-		}
-	}
-
 	public boolean setHoverCoords(int worldX, int worldY) {
 		boolean changed = false;
-		if (worldX >= 0 && worldY >= 0 &&
-						worldX < sizeSqrt && worldY < sizeSqrt) {
+		if (isPointWithinBounds(worldX, worldY)) {
 			changed = worldX != this.hoverWorldX || worldY != this.hoverWorldY;
 			this.hoverWorldX = worldX;
 			this.hoverWorldY = worldY;

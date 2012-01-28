@@ -9,3 +9,9 @@
 RadioButton {
   -fx-text-fill: #f0f0f0;
 }
+
+TextField {
+	font-family: "Courier New";
+	font-size: 16px;
+	font-weight: bold;
+}

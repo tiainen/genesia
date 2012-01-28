@@ -8,21 +8,16 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import net.sertik.genesia.entity.GameObject;
 import net.sertik.genesia.entity.Scenery;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
-import net.sertik.genesia.resource.ResourceLoader;
 import net.sertik.genesia.ui.OrderedGroup;
 
 /**
  *
  * @author Joeri
  */
-public class QuadTreeRenderer implements Renderer {
-  private ResourceLoader resourceLoader;
-  private World world;
-
+public class QuadTreeRenderer extends Renderer {
   private int minTilesWidth = 4;
 
   private BoundingBox checkBounds;
@@ -31,16 +26,6 @@ public class QuadTreeRenderer implements Renderer {
   private Map<Point2D, Node> visibleNodes = new HashMap<>();
 
 	private Node hoverTile;
-
-  @Override
-  public void setResourceLoader(ResourceLoader resourceLoader) {
-    this.resourceLoader = resourceLoader;
-  }
-
-  @Override
-  public void setWorld(World world) {
-    this.world = world;
-  }
 
   @Override
   public void render(Group container, double width, double height) {
@@ -102,25 +87,13 @@ public class QuadTreeRenderer implements Renderer {
         if (bounds.intersects(checkBounds)) {
           if (! visibleNodes.containsKey(point)) {
             Tile tile = world.getTile(parentOffsetX + x, parentOffsetY + y);
-            if (! tile.getObjects().isEmpty()) {
-              if (tile.getObjects().size() == 1) {
-								Node node = resourceLoader.createResource(tile.getObjects().get(0));
-								node.setLayoutX(point.getX());
-								node.setLayoutY(point.getY());
-								visibleNodes.put(point, node);
-								visibleNodesToAdd.add(node);
-              } else {
-                Group nodeGroup = new Group();
-                for (GameObject object : tile.getObjects()) {
-                  Node node = resourceLoader.createResource(object);
-                  nodeGroup.getChildren().add(node);
-                }
-                nodeGroup.setLayoutX(point.getX());
-                nodeGroup.setLayoutY(point.getY());
-                visibleNodes.put(point, nodeGroup);
-                visibleNodesToAdd.add(nodeGroup);
-              }
-            }
+						Node node = resourceLoader.createResource(tile);
+						if (node != null) {
+							node.setLayoutX(point.getX());
+							node.setLayoutY(point.getY());
+							visibleNodes.put(point, node);
+							visibleNodesToAdd.add(node);
+						}
           }
         } else {
           visibleNodesToRemove.add(visibleNodes.get(point));

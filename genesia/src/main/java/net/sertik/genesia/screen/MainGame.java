@@ -9,9 +9,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import net.sertik.genesia.Genesia;
+import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.render.Renderer;
 import net.sertik.genesia.ui.OrderedGroup;
+import net.sertik.genesia.ui.TileNode;
 
 /**
  *
@@ -24,6 +26,8 @@ public class MainGame extends Group {
   private Renderer renderer;
 
   private OrderedGroup tilesGroup;
+
+	private Group selectedTileGroup;
 
   private double dragStartX = 0;
   private double dragStartY = 0;
@@ -90,7 +94,14 @@ public class MainGame extends Group {
 			public void handle(MouseEvent me) {
 				if (me.isStillSincePress()) {
 					Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
-					genesia.getGame().getWorld().setSelectedTile(mapCoords.x, mapCoords.y);
+					if (genesia.getGame().getWorld().isPointWithinBounds(mapCoords.x, mapCoords.y)) {
+						Tile selectedTile = genesia.getGame().getWorld().getTile(mapCoords.x, mapCoords.y);
+						if (selectedTileGroup.getChildren().isEmpty() ||
+										! selectedTile.equals(((TileNode) selectedTileGroup.getChildren().get(0)).getTile())) {
+							selectedTileGroup.getChildren().clear();
+							selectedTileGroup.getChildren().add(renderer.getResourceLoader().createResource(selectedTile));
+						}
+					}
 				}
 			}
 		});
@@ -134,7 +145,11 @@ public class MainGame extends Group {
 		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
     inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
 
-		getChildren().addAll(clipContainer, inputCapture);
+		selectedTileGroup = new Group();
+		selectedTileGroup.setLayoutX(width - 200);
+		selectedTileGroup.setLayoutY(50);
+
+		getChildren().addAll(clipContainer, selectedTileGroup, inputCapture);
   }
 
 	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
@@ -169,7 +184,7 @@ public class MainGame extends Group {
 
 		return new Point(mapX, mapY);
 	}
-	
+
   public void setRenderer(Renderer renderer) {
     this.renderer = renderer;
   }
