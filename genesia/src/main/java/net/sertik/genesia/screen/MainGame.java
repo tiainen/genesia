@@ -3,14 +3,18 @@ package net.sertik.genesia.screen;
 import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.RectangleBuilder;
 import net.sertik.genesia.Genesia;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
+import net.sertik.genesia.media.Assets;
 import net.sertik.genesia.render.Renderer;
 import net.sertik.genesia.ui.OrderedGroup;
 import net.sertik.genesia.ui.TileWithDescriptionNode;
@@ -60,7 +64,7 @@ public class MainGame extends Group {
     this.width = width;
     this.height = height;
 
-    Rectangle inputCapture = new Rectangle();
+		Rectangle inputCapture = new Rectangle();
     inputCapture.setFill(Color.TRANSPARENT);
 		inputCapture.setFocusTraversable(true);
 		inputCapture.requestFocus();
@@ -132,23 +136,43 @@ public class MainGame extends Group {
       }
     });
 
+    final ImageView menuBackground = new ImageView();
+    menuBackground.setOpacity(0.95);
+    menuBackground.setImage(Assets.getImages().get(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
+
+		selectedTileInfo = new TileWithDescriptionNode();
+		selectedTileInfo.setLayoutX(61.0);
+		selectedTileInfo.setLayoutY(36.0);
+
+		Rectangle selectedTileInfoRect = RectangleBuilder.create()
+						.width(World.TILE_WIDTH + 50.0).height(World.TILE_HEIGHT * 3.0)
+						.arcWidth(3.0).arcHeight(3.0)
+						.fill(Color.WHITE)
+						.opacity(0.5).build();
+
+		StackPane selectedTileInfoGroup = new StackPane();
+		selectedTileInfoGroup.setPrefWidth(World.TILE_WIDTH + 50.0);
+		selectedTileInfoGroup.getChildren().addAll(selectedTileInfoRect, selectedTileInfo);
+		selectedTileInfoGroup.setLayoutX((250.0 - selectedTileInfoGroup.getPrefWidth()) / 2.0);
+		selectedTileInfoGroup.setLayoutY(25.0);
+
+		Group menu = new Group();
+		menu.setLayoutX(width - 250);
+		menu.getChildren().addAll(menuBackground, selectedTileInfoGroup);
+
     tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX(width / 2);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
-		clipContainer.setClip(new Rectangle(width - 250, height - 200));
+		clipContainer.setClip(new Rectangle(width - 250, height));
 		clipContainer.getChildren().add(tilesGroup);
 
 		// land can only be dragged by the size of the container
 		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
     inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
 
-		selectedTileInfo = new TileWithDescriptionNode();
-		selectedTileInfo.setLayoutX(width - 200);
-		selectedTileInfo.setLayoutY(50);
-
-		getChildren().addAll(clipContainer, selectedTileInfo, inputCapture);
+		getChildren().addAll(menu, clipContainer, inputCapture);
   }
 
 	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
