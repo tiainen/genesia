@@ -3,6 +3,7 @@ package net.sertik.genesia.ui;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.media.Assets;
 
@@ -19,8 +20,9 @@ public class TileWithDescriptionNode extends VBox {
 		setSpacing(15.0);
 		setAlignment(Pos.CENTER);
 
-		landName = new Label();
+		landName = new Label("no land\nselected");
 		landName.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+		landName.setTextAlignment(TextAlignment.CENTER);
 		description = new Label();
 		description.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
 
@@ -48,7 +50,7 @@ public class TileWithDescriptionNode extends VBox {
 			landName.setText(tile.getLand().getName());
 			description.setText(tile.toString());
 		} else {
-			landName.setText("");
+			landName.setText("no land\nselected");
 			description.setText("");
 		}
 	}
