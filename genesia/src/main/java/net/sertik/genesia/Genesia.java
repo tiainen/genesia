@@ -93,7 +93,7 @@ public class Genesia extends Application {
       renderer.setResourceLoader(new PolygonResourceLoader());
 //      renderer.setResourceLoader(new ImageResourceLoader());
 
-      MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 300);
+      MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
       mainGame.setRenderer(renderer);
 
       mainGame.render();
