@@ -20,13 +20,15 @@ public class Assets {
   };
 
   private static final String[] BACKGROUNDS = {
-    "screens/gameSelectionBackground.png"
+    "screens/gameSelectionBackground.png",
+		"screens/menuBackground.png"
   };
 
   public static final int IMAGE_TILES_SPRING_BARRACKS = 0;
   public static final int IMAGE_TILES_SPRING_GRASS_01 = 1;
 
   public static final int IMAGE_SCREENS_GAME_SELECTION_BACKGROUND = 2;
+  public static final int IMAGE_SCREENS_MENU_BACKGROUND = 3;
 
   private static List<Image> images = new LinkedList<>();
   public static List<Image> getImages() {
@@ -54,8 +56,6 @@ public class Assets {
       }
       images.add(image);
     }
-
-    System.out.println("images = " + images);
 
     fonts.add(Font.font("Courier New", FontWeight.BOLD, 13));
     fonts.add(Font.font("Courier New", FontWeight.BOLD, 16));
