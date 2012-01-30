@@ -16,7 +16,9 @@ public class Assets {
 
   private static final String[] TILES = {
     "tiles/spring/barracks.png",
-    "tiles/spring/grass01.png"
+    "tiles/spring/grass01.png",
+    "tiles/spring/grass02.png",
+    "tiles/spring/tree01.png"
   };
 
   private static final String[] BACKGROUNDS = {
@@ -26,13 +28,20 @@ public class Assets {
 
   public static final int IMAGE_TILES_SPRING_BARRACKS = 0;
   public static final int IMAGE_TILES_SPRING_GRASS_01 = 1;
+  public static final int IMAGE_TILES_SPRING_GRASS_02 = 2;
+  public static final int IMAGE_TILES_SPRING_TREE_01 = 3;
 
-  public static final int IMAGE_SCREENS_GAME_SELECTION_BACKGROUND = 2;
-  public static final int IMAGE_SCREENS_MENU_BACKGROUND = 3;
+  public static final int IMAGE_SCREENS_GAME_SELECTION_BACKGROUND = 0;
+  public static final int IMAGE_SCREENS_MENU_BACKGROUND = 1;
 
-  private static List<Image> images = new LinkedList<>();
-  public static List<Image> getImages() {
-    return images;
+  private static List<Image> tiles = new LinkedList<>();
+  public static List<Image> getTiles() {
+    return tiles;
+  }
+
+  private static List<Image> backgrounds = new LinkedList<>();
+  public static List<Image> getBackgrounds() {
+    return backgrounds;
   }
 
   private static List<Font> fonts = new LinkedList<>();
@@ -46,7 +55,7 @@ public class Assets {
       if (image.isError()) {
         System.out.println("Image " + imageResource + " not found");
       }
-      images.add(image);
+      tiles.add(image);
     }
 
     for (String imageResource : BACKGROUNDS) {
@@ -54,7 +63,7 @@ public class Assets {
       if (image.isError()) {
         System.out.println("Image " + imageResource + " not found");
       }
-      images.add(image);
+      backgrounds.add(image);
     }
 
     fonts.add(Font.font("Courier New", FontWeight.BOLD, 13));

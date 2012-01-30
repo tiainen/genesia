@@ -137,21 +137,20 @@ public class MainGame extends Group {
     });
 
     final ImageView menuBackground = new ImageView();
-    menuBackground.setOpacity(0.95);
-    menuBackground.setImage(Assets.getImages().get(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
+    menuBackground.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
 
 		selectedTileInfo = new TileWithDescriptionNode();
 		selectedTileInfo.setLayoutX(61.0);
 		selectedTileInfo.setLayoutY(36.0);
 
 		Rectangle selectedTileInfoRect = RectangleBuilder.create()
-						.width(World.TILE_WIDTH + 50.0).height(World.TILE_HEIGHT * 3.0)
+						.width(160.0).height(176.0)
 						.arcWidth(3.0).arcHeight(3.0)
 						.fill(Color.WHITE)
 						.opacity(0.5).build();
 
 		StackPane selectedTileInfoGroup = new StackPane();
-		selectedTileInfoGroup.setPrefWidth(World.TILE_WIDTH + 50.0);
+		selectedTileInfoGroup.setPrefWidth(160.0);
 		selectedTileInfoGroup.getChildren().addAll(selectedTileInfoRect, selectedTileInfo);
 		selectedTileInfoGroup.setLayoutX((250.0 - selectedTileInfoGroup.getPrefWidth()) / 2.0);
 		selectedTileInfoGroup.setLayoutY(25.0);

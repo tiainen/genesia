@@ -54,7 +54,7 @@ public class GameSelection extends StackPane {
     final ImageView background = new ImageView();
     background.setCursor(Cursor.HAND);
     background.setOpacity(1.0);
-    background.setImage(Assets.getImages().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
+    background.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
     background.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {

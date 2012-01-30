@@ -26,7 +26,7 @@ public class AskPlayerName extends StackPane {
 
     final ImageView background = new ImageView();
     background.setOpacity(0.3);
-    background.setImage(Assets.getImages().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
+    background.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
 
     VBox vbox = new VBox();
     vbox.setAlignment(Pos.CENTER);
