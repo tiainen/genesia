@@ -90,8 +90,8 @@ public class Genesia extends Application {
 //      Renderer renderer = new SimpleRenderer();
       Renderer renderer = new QuadTreeRenderer();
       renderer.setWorld(game.getWorld());
-      renderer.setResourceLoader(new PolygonResourceLoader());
-//      renderer.setResourceLoader(new ImageResourceLoader());
+//      renderer.setResourceLoader(new PolygonResourceLoader());
+      renderer.setResourceLoader(new ImageResourceLoader());
 
       MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
       mainGame.setRenderer(renderer);

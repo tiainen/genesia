@@ -1,5 +1,6 @@
 package net.sertik.genesia.resource;
 
+import java.util.Random;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +17,9 @@ import net.sertik.genesia.media.Assets;
  * @author joeri
  */
 public class ImageResourceLoader extends ResourceLoader {
-  @Override
+	private Random rand = new Random();
+
+	@Override
   public Node createResource(GameObject object) {
 		if (object.equals(Scenery.HOVER_TILE)) {
 			Polygon polygon = new Polygon();
@@ -32,7 +35,17 @@ public class ImageResourceLoader extends ResourceLoader {
 			polygon.setFill(Color.TRANSPARENT);
 			return polygon;
 		} else {
-			Image image = Assets.getImages().get(Assets.IMAGE_TILES_SPRING_GRASS_01);
+			Image image;
+			if ("tree".equals(object.getName())) {
+				image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_TREE_01);
+			} else {
+				if (rand.nextBoolean()) {
+					image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_GRASS_01);
+				} else {
+					image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_GRASS_02);
+				}
+			}
+
 			ImageView imageView = new ImageView();
 			imageView.setImage(image);
 		  imageView.setTranslateY(-image.getHeight() + World.TILE_HEIGHT);
