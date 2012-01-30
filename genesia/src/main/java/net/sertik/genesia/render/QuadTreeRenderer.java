@@ -48,7 +48,7 @@ public class QuadTreeRenderer extends Renderer {
 		if (world.getHoverWorldX() != -1 && world.getHoverWorldY() != -1) {
 			if (hoverTile == null) {
 				hoverTile = resourceLoader.createResource(Scenery.HOVER_TILE);
-				hoverTile.setTranslateZ(1.0);
+				hoverTile.setUserData(new Integer(1));
 				container.getChildren().add(hoverTile);
 			}
 			hoverTile.setLayoutX(World.TILE_WIDTH / 2 * (world.getHoverWorldX() - world.getHoverWorldY()));
