@@ -23,7 +23,8 @@ public class Assets {
 
   private static final String[] BACKGROUNDS = {
     "screens/gameSelectionBackground.png",
-		"screens/menuBackground.png"
+		"screens/menuBackground.png",
+		"screens/gameMainBackground.jpg"
   };
 
   public static final int IMAGE_TILES_SPRING_BARRACKS = 0;
@@ -33,6 +34,7 @@ public class Assets {
 
   public static final int IMAGE_SCREENS_GAME_SELECTION_BACKGROUND = 0;
   public static final int IMAGE_SCREENS_MENU_BACKGROUND = 1;
+  public static final int IMAGE_SCREENS_GAME_MAIN_BACKGROUND = 2;
 
   private static List<Image> tiles = new LinkedList<>();
   public static List<Image> getTiles() {

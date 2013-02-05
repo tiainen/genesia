@@ -48,16 +48,24 @@ public class MainGame extends Group {
 		for (int j = 0; j < World.TILE_HEIGHT / 2; j++) {
 			for (int i = 0; i < World.TILE_WIDTH; i++) {
 				int ri = World.TILE_WIDTH / 2;
-				if (i < ri - (j * 2) - 1) mouseMapLookupTable[i][j] = 1;
-				if (i > ri + j * 2) mouseMapLookupTable[i][j] = 2;
+				if (i < ri - (j * 2) - 1) {
+					mouseMapLookupTable[i][j] = MOUSEMAP_NW;
+				}
+				if (i > ri + j * 2) {
+					mouseMapLookupTable[i][j] = MOUSEMAP_NE;
+				}
 			}
 		}
 		// initialize bottom half
 		for (int j = World.TILE_HEIGHT / 2; j > 0; j--) {
 			for (int i = 0; i < World.TILE_WIDTH; i++) {
 				int ri = World.TILE_WIDTH / 2;
-				if (i < ri - (j * 2) + 1) mouseMapLookupTable[i][World.TILE_HEIGHT - j] = 3;
-				if (i > ri + (j * 2) - 2) mouseMapLookupTable[i][World.TILE_HEIGHT - j] = 4;
+				if (i < ri - (j * 2) + 1) {
+					mouseMapLookupTable[i][World.TILE_HEIGHT - j] = MOUSEMAP_SW;
+				}
+				if (i > ri + (j * 2) - 2) {
+					mouseMapLookupTable[i][World.TILE_HEIGHT - j] = MOUSEMAP_SE;
+				}
 			}
 		}
 
@@ -136,7 +144,10 @@ public class MainGame extends Group {
       }
     });
 
-    final ImageView menuBackground = new ImageView();
+    final ImageView mainBackground = new ImageView();
+    mainBackground.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_MAIN_BACKGROUND));
+
+		final ImageView menuBackground = new ImageView();
     menuBackground.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
 
 		selectedTileInfo = new TileWithDescriptionNode();
@@ -171,7 +182,7 @@ public class MainGame extends Group {
 		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
     inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
 
-		getChildren().addAll(menu, clipContainer, inputCapture);
+		getChildren().addAll(mainBackground, menu, clipContainer, inputCapture);
   }
 
 	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
@@ -216,7 +227,9 @@ public class MainGame extends Group {
   }
 
   public void render() {
-    if (renderer == null) throw new RuntimeException("No Renderer specified.");
+    if (renderer == null) {
+			throw new RuntimeException("No Renderer specified.");
+		}
 
     renderer.render(tilesGroup, width, height);
   }
