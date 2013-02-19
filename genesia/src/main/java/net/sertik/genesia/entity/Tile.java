@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * A Tile defines what GameObjects are placed at a certain location in a
+ * certain land.
  *
  * @author joeri
  */
@@ -14,6 +16,11 @@ public class Tile {
   private Land land;
   private List<GameObject> objects = new LinkedList<>();
 
+	/**
+	 * Returns the x-coordinate of the tile.
+	 * 
+	 * @return the x-coordinate of the tile
+	 */
   public int getX() {
     return x;
   }
@@ -22,6 +29,11 @@ public class Tile {
     this.x = x;
   }
 
+	/**
+	 * Returns the y-coordinate of the tile.
+	 *
+	 * @return the y-coordinate of the tile
+	 */
   public int getY() {
     return y;
   }
@@ -30,6 +42,12 @@ public class Tile {
     this.y = y;
   }
 
+	/**
+	 * Specifies in which Land this tile is situated. The x- and y-coordinate
+	 * are relative within the location of this land.
+	 *
+	 * @return the land this tile is situated in
+	 */
   public Land getLand() {
     return land;
   }
@@ -38,6 +56,12 @@ public class Tile {
     this.land = land;
   }
 
+	/**
+	 * Defines the list of GameObjects that are placed into this Tile. At least
+	 * one GameObject should be added to this list.
+	 *
+	 * @return a list of GameObjects on this tile
+	 */
   public List<GameObject> getObjects() {
     return objects;
   }

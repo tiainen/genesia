@@ -207,6 +207,14 @@ public class GameSelection extends StackPane {
           Player player = new Player();
           player.setComputer(false);
           player.setColor(Player.COLORS[i]);
+					switch (game.getDifficulty()) {
+						case BEGINNER:
+							player.setGold(12000);
+						case NORMAL:
+							player.setGold(10000);
+						case ADVANCED:
+							player.setGold(8000);
+					}
           game.getPlayers().add(player);
         }
         for (int i = totalPlayers; i < 3; i++) {
@@ -214,6 +222,14 @@ public class GameSelection extends StackPane {
           player.setComputer(true);
           player.setColor(Player.COLORS[i]);
           player.setName(Player.NAMES[i - totalPlayers]);
+					switch (game.getDifficulty()) {
+						case BEGINNER:
+							player.setGold(8000);
+						case NORMAL:
+							player.setGold(10000);
+						case ADVANCED:
+							player.setGold(12000);
+					}
           game.getPlayers().add(player);
         }
 

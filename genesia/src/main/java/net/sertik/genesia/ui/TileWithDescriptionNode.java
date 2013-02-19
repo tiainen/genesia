@@ -1,7 +1,6 @@
 package net.sertik.genesia.ui;
 
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
