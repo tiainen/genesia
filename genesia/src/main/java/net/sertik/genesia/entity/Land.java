@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * A land consists of a series of tiles and a land is in its turn part of
+ * the game world. A land can be owned by a player, but can also be without
+ * an owner.
  *
  * @author joeri
  */
@@ -15,6 +18,11 @@ public class Land {
   private Player owner;
   private List<Tile> tiles = new LinkedList<>();
 
+	/**
+	 * The name for this land.
+	 *
+	 * @return the name of the land
+	 */
   public String getName() {
     return name;
   }
@@ -23,6 +31,11 @@ public class Land {
     this.name = name;
   }
 
+	/**
+	 * The World where this land resides in.
+	 *
+	 * @return the world the land is in
+	 */
 	public World getWorld() {
 		return world;
 	}
@@ -31,6 +44,11 @@ public class Land {
 		this.world = world;
 	}
 
+	/**
+	 * Returns the x-coordinate of the land.
+	 *
+	 * @return the x-coordinate of the land
+	 */
   public int getX() {
     return x;
   }
@@ -39,6 +57,11 @@ public class Land {
     this.x = x;
   }
 
+	/**
+	 * Returns the y-coordinate of the land.
+	 *
+	 * @return the y-coordinate of the land
+	 */
   public int getY() {
     return y;
   }
@@ -47,6 +70,12 @@ public class Land {
     this.y = y;
   }
 
+	/**
+	 * Gets the player that is the owner of this land. The owner can be
+	 * <code>null</code> if this land has no owner.
+	 *
+	 * @return the owner of the land
+	 */
   public Player getOwner() {
     return owner;
   }
@@ -55,6 +84,11 @@ public class Land {
     this.owner = owner;
   }
 
+	/**
+	 * Returns all the tiles that are part of this land.
+	 *
+	 * @return a list of tiles that are part of the land
+	 */
   public List<Tile> getTiles() {
     return tiles;
   }

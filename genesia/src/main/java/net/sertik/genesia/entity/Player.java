@@ -20,6 +20,8 @@ public class Player {
   private Color color;
   private List<Land> lands;
 
+	private long gold;
+
   public boolean getComputer() {
     return computer;
   }
@@ -51,4 +53,12 @@ public class Player {
   public void setLands(List<Land> lands) {
     this.lands = lands;
   }
+
+	public long getGold() {
+		return gold;
+	}
+
+	public void setGold(long gold) {
+		this.gold = gold;
+	}
 }

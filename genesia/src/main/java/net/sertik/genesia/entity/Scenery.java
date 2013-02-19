@@ -1,10 +1,17 @@
 package net.sertik.genesia.entity;
 
 /**
+ * A Scenery is an object that is not directly controlled by a Player. It can be
+ * a simple patch of flowers, but can also be a resource that can be used by
+ * players, for instance a tree.
  *
  * @author Joeri
  */
 public class Scenery implements GameObject {
+	/**
+	 * This is a special Scenery object that is used to identify which
+	 * tile is currently hovered over by the mouse.
+	 */
 	public static final Scenery HOVER_TILE = new Scenery("SYSTEM_HoverTile");
 
   private String name;
