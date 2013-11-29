@@ -134,8 +134,21 @@ public class MainGame extends Group {
 					double diffX = me.getSceneX() - dragStartX;
 					double diffY = me.getSceneY() - dragStartY;
 					if (diffX != 0 || diffY != 0) {
-						tilesGroup.setTranslateX(tilesGroup.getTranslateX() + diffX);
-						tilesGroup.setTranslateY(tilesGroup.getTranslateY() + diffY);
+						// bound x and y position within map bounds
+						double newXPosition = tilesGroup.getTranslateX() + diffX;
+						if (newXPosition < World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH)) {
+							newXPosition = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH);
+						} else if (newXPosition > World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2) {
+							newXPosition = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2;
+						}
+						double newYPosition = tilesGroup.getTranslateY() + diffY;
+						if (newYPosition > World.TILE_HEIGHT * 2) {
+							newYPosition = World.TILE_HEIGHT * 2;
+						} else if (newYPosition < (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 1) * -1) + height) {
+							newYPosition = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 1) * -1) + height;
+						}
+						tilesGroup.setTranslateX(newXPosition);
+						tilesGroup.setTranslateY(newYPosition);
 						render();
 						dragStartX = me.getSceneX();
 						dragStartY = me.getSceneY();
