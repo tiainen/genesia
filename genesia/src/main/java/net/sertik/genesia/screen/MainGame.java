@@ -135,19 +135,25 @@ public class MainGame extends Group {
 					if (diffX != 0 || diffY != 0) {
 						// bound x and y position within map bounds
 						double newXPosition = tilesGroup.getTranslateX() + diffX;
-						if (newXPosition < World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH)) {
-							newXPosition = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH);
-						} else if (newXPosition > World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2) {
-							newXPosition = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2;
-						}
-						double newYPosition = tilesGroup.getTranslateY() + diffY;
-						if (newYPosition > World.TILE_HEIGHT * 2) {
-							newYPosition = World.TILE_HEIGHT * 2;
-						} else if (newYPosition < (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 1) * -1) + height) {
-							newYPosition = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 1) * -1) + height;
+						double xRightBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH);
+						double xLeftBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2;
+						if (newXPosition < xRightBound) {
+							newXPosition = xRightBound;
+						} else if (newXPosition > xLeftBound) {
+							newXPosition = xLeftBound;
 						}
 						tilesGroup.setTranslateX(newXPosition);
+
+						double newYPosition = tilesGroup.getTranslateY() + diffY;
+						double yUpperBound = World.TILE_HEIGHT * 3 - (Math.abs((newXPosition - (width - 250) / 2) / 2));
+						double yLowerBound = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 4) * -1) + height + (Math.abs((newXPosition - (width - 250) / 2) / 2));
+						if (newYPosition > yUpperBound) {
+							newYPosition = yUpperBound;
+						} else if (newYPosition < yLowerBound) {
+							newYPosition = yLowerBound;
+						}
 						tilesGroup.setTranslateY(newYPosition);
+
 						render();
 						dragStartX = me.getSceneX();
 						dragStartY = me.getSceneY();
@@ -183,7 +189,7 @@ public class MainGame extends Group {
 
     tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX((width - 250) / 2);
-		tilesGroup.setTranslateY(World.TILE_HEIGHT * 2);
+		tilesGroup.setTranslateY(World.TILE_HEIGHT * 3);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
