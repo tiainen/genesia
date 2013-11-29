@@ -172,6 +172,7 @@ public class MainGame extends Group {
 
     tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX((width - 250) / 2);
+		tilesGroup.setTranslateY(World.TILE_HEIGHT * 2);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
