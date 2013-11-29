@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.RectangleBuilder;
 import net.sertik.genesia.Genesia;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
@@ -134,8 +133,27 @@ public class MainGame extends Group {
 					double diffX = me.getSceneX() - dragStartX;
 					double diffY = me.getSceneY() - dragStartY;
 					if (diffX != 0 || diffY != 0) {
-						tilesGroup.setTranslateX(tilesGroup.getTranslateX() + diffX);
-						tilesGroup.setTranslateY(tilesGroup.getTranslateY() + diffY);
+						// bound x and y position within map bounds
+						double newXPosition = tilesGroup.getTranslateX() + diffX;
+						double xRightBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH);
+						double xLeftBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2;
+						if (newXPosition < xRightBound) {
+							newXPosition = xRightBound;
+						} else if (newXPosition > xLeftBound) {
+							newXPosition = xLeftBound;
+						}
+						tilesGroup.setTranslateX(newXPosition);
+
+						double newYPosition = tilesGroup.getTranslateY() + diffY;
+						double yUpperBound = World.TILE_HEIGHT * 3 - (Math.abs((newXPosition - (width - 250) / 2) / 2));
+						double yLowerBound = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 4) * -1) + height + (Math.abs((newXPosition - (width - 250) / 2) / 2));
+						if (newYPosition > yUpperBound) {
+							newYPosition = yUpperBound;
+						} else if (newYPosition < yLowerBound) {
+							newYPosition = yLowerBound;
+						}
+						tilesGroup.setTranslateY(newYPosition);
+
 						render();
 						dragStartX = me.getSceneX();
 						dragStartY = me.getSceneY();
@@ -154,11 +172,10 @@ public class MainGame extends Group {
 		selectedTileInfo.setLayoutX(61.0);
 		selectedTileInfo.setLayoutY(36.0);
 
-		Rectangle selectedTileInfoRect = RectangleBuilder.create()
-						.width(160.0).height(176.0)
-						.arcWidth(3.0).arcHeight(3.0)
-						.fill(Color.WHITE)
-						.opacity(0.5).build();
+		Rectangle selectedTileInfoRect = new Rectangle(160.0, 176.0, Color.WHITE);
+		selectedTileInfoRect.setArcWidth(3.0);
+		selectedTileInfoRect.setArcHeight(3.0);
+		selectedTileInfoRect.setOpacity(0.5);
 
 		StackPane selectedTileInfoGroup = new StackPane();
 		selectedTileInfoGroup.setPrefWidth(160.0);
@@ -171,7 +188,8 @@ public class MainGame extends Group {
 		menu.getChildren().addAll(menuBackground, selectedTileInfoGroup);
 
     tilesGroup = new OrderedGroup();
-		tilesGroup.setTranslateX(width / 2);
+		tilesGroup.setTranslateX((width - 250) / 2);
+		tilesGroup.setTranslateY(World.TILE_HEIGHT * 3);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
