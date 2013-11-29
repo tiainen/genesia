@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.RectangleBuilder;
 import net.sertik.genesia.Genesia;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
@@ -167,11 +166,10 @@ public class MainGame extends Group {
 		selectedTileInfo.setLayoutX(61.0);
 		selectedTileInfo.setLayoutY(36.0);
 
-		Rectangle selectedTileInfoRect = RectangleBuilder.create()
-						.width(160.0).height(176.0)
-						.arcWidth(3.0).arcHeight(3.0)
-						.fill(Color.WHITE)
-						.opacity(0.5).build();
+		Rectangle selectedTileInfoRect = new Rectangle(160.0, 176.0, Color.WHITE);
+		selectedTileInfoRect.setArcWidth(3.0);
+		selectedTileInfoRect.setArcHeight(3.0);
+		selectedTileInfoRect.setOpacity(0.5);
 
 		StackPane selectedTileInfoGroup = new StackPane();
 		selectedTileInfoGroup.setPrefWidth(160.0);
