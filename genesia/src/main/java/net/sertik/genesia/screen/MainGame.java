@@ -171,7 +171,7 @@ public class MainGame extends Group {
 		menu.getChildren().addAll(menuBackground, selectedTileInfoGroup);
 
     tilesGroup = new OrderedGroup();
-		tilesGroup.setTranslateX(width / 2);
+		tilesGroup.setTranslateX((width - 250) / 2);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
