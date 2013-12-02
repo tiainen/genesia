@@ -19,6 +19,10 @@ import net.sertik.genesia.media.Assets;
 public class ImageResourceLoader extends ResourceLoader {
 	private Random rand = new Random();
 
+	public ImageResourceLoader(World world) {
+		super(world);
+	}
+
 	@Override
   public Node createResource(GameObject object) {
 		if (object.equals(Scenery.HOVER_TILE)) {
