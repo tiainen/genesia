@@ -23,8 +23,8 @@ import net.sertik.genesia.ui.TileWithDescriptionNode;
  * @author joeri
  */
 public class MainGame extends Group {
-  private double width;
-  private double height;
+  private double screenWidth;
+  private double screenHeight;
 
   private Renderer renderer;
 
@@ -42,7 +42,7 @@ public class MainGame extends Group {
 	private static final int MOUSEMAP_SE = 4;
 	private int mouseMapLookupTable[][] = new int[World.TILE_WIDTH][World.TILE_HEIGHT];
 
-  public MainGame(final Genesia genesia, double width, double height) {
+  public MainGame(final Genesia genesia, double screenWidth, double screenHeight) {
 		// initialize top half
 		for (int j = 0; j < World.TILE_HEIGHT / 2; j++) {
 			for (int i = 0; i < World.TILE_WIDTH; i++) {
@@ -68,8 +68,8 @@ public class MainGame extends Group {
 			}
 		}
 
-    this.width = width;
-    this.height = height;
+    this.screenWidth = screenWidth;
+    this.screenHeight = screenHeight;
 
 		Rectangle inputCapture = new Rectangle();
     inputCapture.setFill(Color.TRANSPARENT);
@@ -135,7 +135,7 @@ public class MainGame extends Group {
 					if (diffX != 0 || diffY != 0) {
 						// bound x and y position within map bounds
 						double newXPosition = tilesGroup.getTranslateX() + diffX;
-						double xRightBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (width - 250 - World.TILE_WIDTH);
+						double xRightBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / -2 + (screenWidth - 250 - World.TILE_WIDTH);
 						double xLeftBound = World.TILE_WIDTH * renderer.getWorld().getSizeSqrt() / 2;
 						if (newXPosition < xRightBound) {
 							newXPosition = xRightBound;
@@ -145,8 +145,8 @@ public class MainGame extends Group {
 						tilesGroup.setTranslateX(newXPosition);
 
 						double newYPosition = tilesGroup.getTranslateY() + diffY;
-						double yUpperBound = World.TILE_HEIGHT * 3 - (Math.abs((newXPosition - (width - 250) / 2) / 2));
-						double yLowerBound = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 4) * -1) + height + (Math.abs((newXPosition - (width - 250) / 2) / 2));
+						double yUpperBound = World.TILE_HEIGHT * 3 - (Math.abs((newXPosition - (screenWidth - 250) / 2) / 2));
+						double yLowerBound = (World.TILE_HEIGHT * (renderer.getWorld().getSizeSqrt() + 4) * -1) + screenHeight + (Math.abs((newXPosition - (screenWidth - 250) / 2) / 2));
 						if (newYPosition > yUpperBound) {
 							newYPosition = yUpperBound;
 						} else if (newYPosition < yLowerBound) {
@@ -184,16 +184,16 @@ public class MainGame extends Group {
 		selectedTileInfoGroup.setLayoutY(25.0);
 
 		Group menu = new Group();
-		menu.setLayoutX(width - 250);
+		menu.setLayoutX(screenWidth - 250);
 		menu.getChildren().addAll(menuBackground, selectedTileInfoGroup);
 
     tilesGroup = new OrderedGroup();
-		tilesGroup.setTranslateX((width - 250) / 2);
+		tilesGroup.setTranslateX((screenWidth - 250) / 2);
 		tilesGroup.setTranslateY(World.TILE_HEIGHT * 3);
 
 		// clipping container for rendered land
 		Group clipContainer = new Group();
-		clipContainer.setClip(new Rectangle(width - 250, height));
+		clipContainer.setClip(new Rectangle(screenWidth - 250, screenHeight));
 		clipContainer.getChildren().add(tilesGroup);
 
 		// land can only be dragged by the size of the container
@@ -249,6 +249,6 @@ public class MainGame extends Group {
 			throw new RuntimeException("No Renderer specified.");
 		}
 
-    renderer.render(tilesGroup, width, height);
+    renderer.render(tilesGroup, screenWidth, screenHeight);
   }
 }
