@@ -8,59 +8,61 @@ package net.sertik.genesia.entity;
  * @author joeri
  */
 public class Construction implements GameObject {
+
 	public enum Stage {
+
 		GROUNDBREAKING, HALFWAY, NEAR_COMPLETION, FINISHED
 	}
 
-  private Tile location;
-  private Building building;
-  private Stage stage;
+	private Tile location;
+	private Building building;
+	private Stage stage;
 
-  @Override
-  public String getName() {
-    return building == null ? null : building.getName();
-  }
+	@Override
+	public String getName() {
+		return building == null ? null : building.getName();
+	}
 
 	/**
 	 * Returns the building that this construction represents.
 	 *
 	 * @return the building representing this construction
 	 */
-  public Building getBuilding() {
-    return building;
-  }
+	public Building getBuilding() {
+		return building;
+	}
 
-  public void setBuilding(Building building) {
-    this.building = building;
-  }
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
 
 	/**
 	 * Returns the stage of the construction process. A construction doesn't have
-	 * to go through every stage, although Stage.GROUNDBREAKING and
-	 * Stage.FINISHED will always be part of the construction process. A
-	 * construction can process to the next stage when a season ends and
-	 * an architect was present during the construction.
+	 * to go through every stage, although Stage.GROUNDBREAKING and Stage.FINISHED
+	 * will always be part of the construction process. A construction can process
+	 * to the next stage when a season ends and an architect was present during
+	 * the construction.
 	 *
 	 * @return the stage of the construction process
 	 */
-  public Stage getStage() {
-    return stage;
-  }
+	public Stage getStage() {
+		return stage;
+	}
 
-  public void setStage(Stage stage) {
-    this.stage = stage;
-  }
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
 
 	/**
 	 * Defines the location of the construction within the game world.
 	 *
 	 * @return the location of this construction in the game world
 	 */
-  public Tile getTile() {
-    return location;
-  }
+	public Tile getTile() {
+		return location;
+	}
 
-  public void setTile(Tile tile) {
-    this.location = tile;
-  }
+	public void setTile(Tile tile) {
+		this.location = tile;
+	}
 }

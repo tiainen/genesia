@@ -11,13 +11,16 @@ import net.sertik.genesia.resource.ResourceLoader;
  * @author Joeri
  */
 public abstract class Renderer {
+
 	protected final ResourceLoader resourceLoader;
 	protected final World world;
 
 	private Node hoverTile;
 
 	public Renderer(ResourceLoader resourceLoader, World world) {
-    if (resourceLoader == null) throw new NullPointerException("No ResourceLoader specified.");
+		if (resourceLoader == null) {
+			throw new NullPointerException("No ResourceLoader specified.");
+		}
 
 		this.resourceLoader = resourceLoader;
 		this.world = world;
@@ -31,7 +34,7 @@ public abstract class Renderer {
 		return world;
 	}
 
-  public void render(Group container, double width, double height) {
+	public void render(Group container, double width, double height) {
 		renderTiles(container, width, height);
 
 		// render hover tile

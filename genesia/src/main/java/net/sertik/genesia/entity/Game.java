@@ -8,49 +8,52 @@ import java.util.List;
  * @author joeri
  */
 public class Game {
-  public enum Difficulty {
-    BEGINNER, NORMAL, ADVANCED
-  }
 
-  public enum Season {
-    SPRING, SUMMER, AUTUMN, WINTER
-  }
+	public enum Difficulty {
 
-  private List<Player> players = new LinkedList<>();
-  private World world;
-  private Difficulty difficulty = Difficulty.NORMAL;
-  private Season season = Season.AUTUMN;
+		BEGINNER, NORMAL, ADVANCED
+	}
 
-  public Difficulty getDifficulty() {
-    return difficulty;
-  }
+	public enum Season {
 
-  public void setDifficulty(Difficulty difficulty) {
-    this.difficulty = difficulty;
-  }
+		SPRING, SUMMER, AUTUMN, WINTER
+	}
 
-  public List<Player> getPlayers() {
-    return players;
-  }
+	private List<Player> players = new LinkedList<>();
+	private World world;
+	private Difficulty difficulty = Difficulty.NORMAL;
+	private Season season = Season.AUTUMN;
 
-  public Season getSeason() {
-    return season;
-  }
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
 
-  public void setSeason(Season season) {
-    this.season = season;
-  }
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
+	}
 
-  public World getWorld() {
-    return world;
-  }
+	public List<Player> getPlayers() {
+		return players;
+	}
 
-  public void setWorld(World world) {
-    this.world = world;
-  }
+	public Season getSeason() {
+		return season;
+	}
 
-  public void process() {
-    Land land = world.getLands().get(0);
+	public void setSeason(Season season) {
+		this.season = season;
+	}
 
-  }
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public void process() {
+		Land land = world.getLands().get(0);
+
+	}
 }

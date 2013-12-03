@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
  * @author Skyora
  */
 public class WorldTest {
+
 	@Test
 	public void testConstructor() {
 		World world = new World(4, 16);

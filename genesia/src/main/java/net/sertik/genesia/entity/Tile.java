@@ -5,56 +5,57 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A Tile defines what GameObjects are placed at a certain location in a
- * certain land.
+ * A Tile defines what GameObjects are placed at a certain location in a certain
+ * land.
  *
  * @author joeri
  */
 public class Tile {
-  private int x;
-  private int y;
-  private Land land;
-  private List<GameObject> objects = new LinkedList<>();
+
+	private int x;
+	private int y;
+	private Land land;
+	private List<GameObject> objects = new LinkedList<>();
 
 	/**
 	 * Returns the x-coordinate of the tile.
-	 * 
+	 *
 	 * @return the x-coordinate of the tile
 	 */
-  public int getX() {
-    return x;
-  }
+	public int getX() {
+		return x;
+	}
 
-  public void setX(int x) {
-    this.x = x;
-  }
+	public void setX(int x) {
+		this.x = x;
+	}
 
 	/**
 	 * Returns the y-coordinate of the tile.
 	 *
 	 * @return the y-coordinate of the tile
 	 */
-  public int getY() {
-    return y;
-  }
+	public int getY() {
+		return y;
+	}
 
-  public void setY(int y) {
-    this.y = y;
-  }
+	public void setY(int y) {
+		this.y = y;
+	}
 
 	/**
-	 * Specifies in which Land this tile is situated. The x- and y-coordinate
-	 * are relative within the location of this land.
+	 * Specifies in which Land this tile is situated. The x- and y-coordinate are
+	 * relative within the location of this land.
 	 *
 	 * @return the land this tile is situated in
 	 */
-  public Land getLand() {
-    return land;
-  }
+	public Land getLand() {
+		return land;
+	}
 
-  public void setLand(Land land) {
-    this.land = land;
-  }
+	public void setLand(Land land) {
+		this.land = land;
+	}
 
 	/**
 	 * Defines the list of GameObjects that are placed into this Tile. At least
@@ -62,17 +63,17 @@ public class Tile {
 	 *
 	 * @return a list of GameObjects on this tile
 	 */
-  public List<GameObject> getObjects() {
-    return objects;
-  }
+	public List<GameObject> getObjects() {
+		return objects;
+	}
 
-  public void setObjects(List<GameObject> objects) {
-    this.objects = objects;
-  }
+	public void setObjects(List<GameObject> objects) {
+		this.objects = objects;
+	}
 
 	@Override
 	public String toString() {
-		if (! objects.isEmpty()) {
+		if (!objects.isEmpty()) {
 			int worldX = x + getLand().getX() * getLand().getWorld().getNumberTilesPerLandSqrt();
 			int worldY = y + getLand().getY() * getLand().getWorld().getNumberTilesPerLandSqrt();
 

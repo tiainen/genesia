@@ -20,37 +20,38 @@ import net.sertik.genesia.media.Assets;
  * @author joeri
  */
 public class AskPlayerName extends StackPane {
-  public AskPlayerName(final Genesia genesia, final Player player, final int position) {
-    Rectangle backgroundRect = new Rectangle(640, 400);
-    backgroundRect.setFill(Color.BLACK);
 
-    final ImageView background = new ImageView();
-    background.setOpacity(0.3);
-    background.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
+	public AskPlayerName(final Genesia genesia, final Player player, final int position) {
+		Rectangle backgroundRect = new Rectangle(640, 400);
+		backgroundRect.setFill(Color.BLACK);
 
-    VBox vbox = new VBox();
-    vbox.setAlignment(Pos.CENTER);
-    vbox.setSpacing(15);
-    vbox.setPadding(new Insets(25, 25, 25, 25));
+		final ImageView background = new ImageView();
+		background.setOpacity(0.3);
+		background.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
 
-    Label label = new Label("Enter your name Player " + (position + 1));
-    label.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
-    label.setTextFill(Color.LIGHTGRAY);
+		VBox vbox = new VBox();
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(15);
+		vbox.setPadding(new Insets(25, 25, 25, 25));
 
-    final TextField name = new TextField();
-    name.setPrefColumnCount(15);
-    name.setText("Player " + (position + 1));
-    name.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        player.setName(name.getText());
-        name.setDisable(true);
-        genesia.askNextPlayerName(position + 1);
-      }
-    });
+		Label label = new Label("Enter your name Player " + (position + 1));
+		label.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
+		label.setTextFill(Color.LIGHTGRAY);
 
-    vbox.getChildren().addAll(label, name);
+		final TextField name = new TextField();
+		name.setPrefColumnCount(15);
+		name.setText("Player " + (position + 1));
+		name.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				player.setName(name.getText());
+				name.setDisable(true);
+				genesia.askNextPlayerName(position + 1);
+			}
+		});
 
-    getChildren().addAll(backgroundRect, background, vbox);
-  }
+		vbox.getChildren().addAll(label, name);
+
+		getChildren().addAll(backgroundRect, background, vbox);
+	}
 }

@@ -16,18 +16,19 @@ import net.sertik.genesia.entity.World;
  * @author joeri
  */
 public class PolygonResourceLoader extends ResourceLoader {
+
 	public PolygonResourceLoader(World world) {
 		super(world);
 	}
 
 	@Override
-  public Node createResource(GameObject gameObject) {
-    Polygon polygon = new Polygon();
-    polygon.getPoints().addAll(
-            World.TILE_WIDTH / 2.0, 0.0,
-            World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
-            World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
-            0.0, World.TILE_HEIGHT / 2.0);
+	public Node createResource(GameObject gameObject) {
+		Polygon polygon = new Polygon();
+		polygon.getPoints().addAll(
+						World.TILE_WIDTH / 2.0, 0.0,
+						World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
+						World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
+						0.0, World.TILE_HEIGHT / 2.0);
 		if (gameObject.equals(Scenery.HOVER_TILE)) {
 			polygon.setStrokeType(StrokeType.INSIDE);
 			polygon.getStrokeDashArray().addAll(4.0, 8.0);
@@ -35,13 +36,13 @@ public class PolygonResourceLoader extends ResourceLoader {
 			polygon.setStrokeWidth(2.0);
 			polygon.setFill(Color.TRANSPARENT);
 		} else {
-	    polygon.setFill(getFill(gameObject));
+			polygon.setFill(getFill(gameObject));
 		}
-    return polygon;
-  }
+		return polygon;
+	}
 
-  private Paint getFill(GameObject object) {
-    if (object instanceof Scenery) {
+	private Paint getFill(GameObject object) {
+		if (object instanceof Scenery) {
 			switch (object.getName()) {
 				case "flag":
 					return Color.ORANGE;
@@ -52,12 +53,12 @@ public class PolygonResourceLoader extends ResourceLoader {
 				default:
 					return Color.GREEN;
 			}
-    } else if (object instanceof Construction) {
-      return Color.YELLOW;
-    } else if (object instanceof Recruit) {
-      return Color.GRAY;
-    } else {
-      return Color.BLUE;
-    }
-  }
+		} else if (object instanceof Construction) {
+			return Color.YELLOW;
+		} else if (object instanceof Recruit) {
+			return Color.GRAY;
+		} else {
+			return Color.BLUE;
+		}
+	}
 }

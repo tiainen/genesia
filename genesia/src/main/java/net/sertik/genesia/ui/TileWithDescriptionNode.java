@@ -13,6 +13,7 @@ import net.sertik.genesia.media.Assets;
  * @author Skyora
  */
 public class TileWithDescriptionNode extends VBox {
+
 	private StackPane tileNodeGroup;
 	private TileNode tileNode;
 	private Label landName;
@@ -28,7 +29,7 @@ public class TileWithDescriptionNode extends VBox {
 		description.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
 
 		tileNodeGroup = new StackPane();
-		tileNodeGroup.setPrefHeight(128.0);		
+		tileNodeGroup.setPrefHeight(128.0);
 
 		VBox labels = new VBox();
 		labels.setAlignment(Pos.CENTER);
@@ -47,7 +48,7 @@ public class TileWithDescriptionNode extends VBox {
 		tileNodeGroup.getChildren().add(this.tileNode);
 
 		Tile tile = this.tileNode.getTile();
-		if (! tile.getObjects().isEmpty()) {
+		if (!tile.getObjects().isEmpty()) {
 			landName.setText(tile.getLand().getName());
 			description.setText(tile.toString());
 		} else {

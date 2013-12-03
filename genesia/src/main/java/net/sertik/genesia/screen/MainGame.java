@@ -23,17 +23,18 @@ import net.sertik.genesia.ui.TileWithDescriptionNode;
  * @author joeri
  */
 public class MainGame extends Group {
-  private double screenWidth;
-  private double screenHeight;
 
-  private Renderer renderer;
+	private double screenWidth;
+	private double screenHeight;
 
-  private OrderedGroup tilesGroup;
+	private Renderer renderer;
+
+	private OrderedGroup tilesGroup;
 
 	private TileWithDescriptionNode selectedTileInfo;
 
-  private double dragStartX = 0;
-  private double dragStartY = 0;
+	private double dragStartX = 0;
+	private double dragStartY = 0;
 
 	private static final int MOUSEMAP_CENTER = 0;
 	private static final int MOUSEMAP_NW = 1;
@@ -42,7 +43,7 @@ public class MainGame extends Group {
 	private static final int MOUSEMAP_SE = 4;
 	private int mouseMapLookupTable[][] = new int[World.TILE_WIDTH][World.TILE_HEIGHT];
 
-  public MainGame(final Genesia genesia, double screenWidth, double screenHeight) {
+	public MainGame(final Genesia genesia, double screenWidth, double screenHeight) {
 		// initialize top half
 		for (int j = 0; j < World.TILE_HEIGHT / 2; j++) {
 			for (int i = 0; i < World.TILE_WIDTH; i++) {
@@ -68,29 +69,29 @@ public class MainGame extends Group {
 			}
 		}
 
-    this.screenWidth = screenWidth;
-    this.screenHeight = screenHeight;
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 
 		Rectangle inputCapture = new Rectangle();
-    inputCapture.setFill(Color.TRANSPARENT);
+		inputCapture.setFill(Color.TRANSPARENT);
 		inputCapture.setFocusTraversable(true);
 		inputCapture.requestFocus();
 
 		// capture keyboard events
-    inputCapture.setOnKeyPressed(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent ke) {
-        if (ke.getCode() == KeyCode.ESCAPE) {
-          genesia.setGame(null);
-        } else {
-          
-        }
-      }
-    });
+		inputCapture.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode() == KeyCode.ESCAPE) {
+					genesia.setGame(null);
+				} else {
+
+				}
+			}
+		});
 
 		// when the mouse is moved, update the hovering tile accordingly
 		inputCapture.setOnMouseMoved(new EventHandler<MouseEvent>() {
-      @Override
+			@Override
 			public void handle(MouseEvent me) {
 				Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
 				if (genesia.getGame().getWorld().setHoverCoords(mapCoords.x, mapCoords.y)) {
@@ -107,8 +108,8 @@ public class MainGame extends Group {
 					Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
 					if (genesia.getGame().getWorld().isPointWithinBounds(mapCoords.x, mapCoords.y)) {
 						Tile selectedTile = genesia.getGame().getWorld().getTile(mapCoords.x, mapCoords.y);
-						if (selectedTileInfo.getTileNode() == null ||
-										! selectedTile.equals(selectedTileInfo.getTileNode().getTile())) {
+						if (selectedTileInfo.getTileNode() == null
+										|| !selectedTile.equals(selectedTileInfo.getTileNode().getTile())) {
 							selectedTileInfo.setTileNode(renderer.getResourceLoader().createResource(selectedTile));
 						}
 					}
@@ -118,18 +119,18 @@ public class MainGame extends Group {
 
 		// when the mouse is pressed down, keep track of the mouse position
 		inputCapture.setOnMousePressed(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent me) {
-        dragStartX = me.getSceneX();
-        dragStartY = me.getSceneY();
-      }
-    });
+			@Override
+			public void handle(MouseEvent me) {
+				dragStartX = me.getSceneX();
+				dragStartY = me.getSceneY();
+			}
+		});
 
 		// when the mouse is dragged, use it to update the position of the map
-    inputCapture.setOnMouseDragged(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent me) {
-				if (! me.isStillSincePress()) {
+		inputCapture.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				if (!me.isStillSincePress()) {
 					double diffX = me.getSceneX() - dragStartX;
 					double diffY = me.getSceneY() - dragStartY;
 					if (diffX != 0 || diffY != 0) {
@@ -159,14 +160,14 @@ public class MainGame extends Group {
 						dragStartY = me.getSceneY();
 					}
 				}
-      }
-    });
+			}
+		});
 
-    final ImageView mainBackground = new ImageView();
-    mainBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_MAIN_BACKGROUND));
+		final ImageView mainBackground = new ImageView();
+		mainBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_MAIN_BACKGROUND));
 
 		final ImageView menuBackground = new ImageView();
-    menuBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
+		menuBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
 
 		selectedTileInfo = new TileWithDescriptionNode();
 		selectedTileInfo.setLayoutX(61.0);
@@ -187,7 +188,7 @@ public class MainGame extends Group {
 		menu.setLayoutX(screenWidth - 250);
 		menu.getChildren().addAll(menuBackground, selectedTileInfoGroup);
 
-    tilesGroup = new OrderedGroup();
+		tilesGroup = new OrderedGroup();
 		tilesGroup.setTranslateX((screenWidth - 250) / 2);
 		tilesGroup.setTranslateY(World.TILE_HEIGHT * 3);
 
@@ -198,10 +199,10 @@ public class MainGame extends Group {
 
 		// land can only be dragged by the size of the container
 		inputCapture.setWidth(clipContainer.getClip().getLayoutBounds().getWidth());
-    inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
+		inputCapture.setHeight(clipContainer.getClip().getLayoutBounds().getHeight());
 
 		getChildren().addAll(mainBackground, menu, clipContainer, inputCapture);
-  }
+	}
 
 	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
 		double pickX = mouseX - tilesGroup.getTranslateX();
@@ -226,29 +227,38 @@ public class MainGame extends Group {
 		// take fine mouse map coords into account by using the lookup
 		// table to define the final map coords
 		switch (mouseMapLookupTable[fineMouseMapX][fineMouseMapY]) {
-			case MOUSEMAP_NW: mapX--; break;
-			case MOUSEMAP_NE: mapY--; break;
-			case MOUSEMAP_SW: mapY++; break;
-			case MOUSEMAP_SE: mapX++; break;
-			case MOUSEMAP_CENTER: break;
+			case MOUSEMAP_NW:
+				mapX--;
+				break;
+			case MOUSEMAP_NE:
+				mapY--;
+				break;
+			case MOUSEMAP_SW:
+				mapY++;
+				break;
+			case MOUSEMAP_SE:
+				mapX++;
+				break;
+			case MOUSEMAP_CENTER:
+				break;
 		}
 
 		return new Point(mapX, mapY);
 	}
 
-  public void setRenderer(Renderer renderer) {
-    this.renderer = renderer;
-  }
+	public void setRenderer(Renderer renderer) {
+		this.renderer = renderer;
+	}
 
-  public Renderer getRenderer() {
-    return renderer;
-  }
+	public Renderer getRenderer() {
+		return renderer;
+	}
 
-  public void render() {
-    if (renderer == null) {
+	public void render() {
+		if (renderer == null) {
 			throw new RuntimeException("No Renderer specified.");
 		}
 
-    renderer.render(tilesGroup, screenWidth, screenHeight);
-  }
+		renderer.render(tilesGroup, screenWidth, screenHeight);
+	}
 }
