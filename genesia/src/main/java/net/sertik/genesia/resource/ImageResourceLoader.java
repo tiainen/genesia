@@ -41,12 +41,12 @@ public class ImageResourceLoader extends ResourceLoader {
 		} else {
 			Image image;
 			if ("tree".equals(object.getName())) {
-				image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_TREE_01);
+				image = Assets.getTile(Assets.IMAGE_TILES_SPRING_TREE_01);
 			} else {
 				if (rand.nextBoolean()) {
-					image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_GRASS_01);
+					image = Assets.getTile(Assets.IMAGE_TILES_SPRING_GRASS_01);
 				} else {
-					image = Assets.getTiles().get(Assets.IMAGE_TILES_SPRING_GRASS_02);
+					image = Assets.getTile(Assets.IMAGE_TILES_SPRING_GRASS_02);
 				}
 			}
 
