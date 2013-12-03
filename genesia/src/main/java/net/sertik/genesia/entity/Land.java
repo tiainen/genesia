@@ -97,6 +97,18 @@ public class Land {
     this.tiles = tiles;
   }
 
+	/**
+	 * Retrieves the tile that is located at the specified x- and y-coordinate.
+	 * These coordinates are land coordinates.
+	 *
+	 * @param tileX the x land coordinate
+	 * @param tileY the y land coordinate
+	 * @return the tile located at these coordinates
+	 */
+  public Tile getTile(int tileX, int tileY) {
+    return tiles.get(tileX * world.getNumberTilesPerLandSqrt() + tileY);
+  }
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

@@ -43,6 +43,8 @@ public class PolygonResourceLoader extends ResourceLoader {
   private Paint getFill(GameObject object) {
     if (object instanceof Scenery) {
 			switch (object.getName()) {
+				case "flag":
+					return Color.ORANGE;
 				case "grass":
 					return Color.LIGHTGREEN;
 				case "tree":
@@ -51,7 +53,7 @@ public class PolygonResourceLoader extends ResourceLoader {
 					return Color.GREEN;
 			}
     } else if (object instanceof Construction) {
-      return Color.ORANGE;
+      return Color.YELLOW;
     } else if (object instanceof Recruit) {
       return Color.GRAY;
     } else {
