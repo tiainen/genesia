@@ -1,11 +1,11 @@
 package net.sertik.genesia.resource;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeType;
 import net.sertik.genesia.entity.GameObject;
+import net.sertik.genesia.entity.Land;
 import net.sertik.genesia.entity.Tile;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.ui.TileNode;
@@ -15,10 +15,14 @@ import net.sertik.genesia.ui.TileNode;
  * @author joeri
  */
 public abstract class ResourceLoader {
-	private World world;
+	private final World world;
 
 	public ResourceLoader(World world) {
 		this.world = world;
+	}
+
+	public World getWorld() {
+		return world;
 	}
 
 	public abstract Node createResource(GameObject gameObject);
@@ -30,7 +34,7 @@ public abstract class ResourceLoader {
 				tileNode.getChildren().add(createResource(gameObject));
 			}
 
-			Node landBorder = createLandBorder(tile.getX(), tile.getY());
+			Node landBorder = createLandBorder(tile.getX(), tile.getY(), tile.getLand());
 			if (landBorder != null) {
 				tileNode.getChildren().add(landBorder);
 			}
@@ -48,114 +52,69 @@ public abstract class ResourceLoader {
 	 *
 	 * @param x the x coordinate of the tile within the land
 	 * @param y the y coordinate of the tile within the land
+	 * @param land the land where the tile belongs to
 	 * @return the lines required to draw the border of tile at the specified coordinates
 	 */
-	private Node createLandBorder(int x, int y) {
+	private Node createLandBorder(int x, int y, Land land) {
 		if (x == 0 && y == 0) {
-			// north east corner
-			Polygon polygon = new Polygon();
-			polygon.getPoints().addAll(
-							World.TILE_WIDTH / 2.0, 0.0,
-							World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
-							World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
-							0.0, World.TILE_HEIGHT / 2.0);
-			polygon.setStrokeType(StrokeType.INSIDE);
-			polygon.getStrokeDashArray().addAll(1.0, 2.0);
-			polygon.setStroke(Color.WHITE);
-			polygon.setStrokeWidth(1.0);
-			polygon.setFill(Color.TRANSPARENT);
-			return polygon;
-		} else if (x == 0 && y == world.getNumberTilesPerLandSqrt() - 1) {
-			// north west corner
-			Polygon polygon = new Polygon();
-			polygon.getPoints().addAll(
-							World.TILE_WIDTH / 2.0, 0.0,
-							World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
-							World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
-							0.0, World.TILE_HEIGHT / 2.0);
-			polygon.setStrokeType(StrokeType.INSIDE);
-			polygon.getStrokeDashArray().addAll(1.0, 2.0);
-			polygon.setStroke(Color.RED);
-			polygon.setStrokeWidth(1.0);
-			polygon.setFill(Color.TRANSPARENT);
-			return polygon;
-		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == 0) {
-			// south east corner
-			Polygon polygon = new Polygon();
-			polygon.getPoints().addAll(
-							World.TILE_WIDTH / 2.0, 0.0,
-							World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
-							World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
-							0.0, World.TILE_HEIGHT / 2.0);
-			polygon.setStrokeType(StrokeType.INSIDE);
-			polygon.getStrokeDashArray().addAll(1.0, 2.0);
-			polygon.setStroke(Color.BLUE);
-			polygon.setStrokeWidth(1.0);
-			polygon.setFill(Color.TRANSPARENT);
-			return polygon;
-		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == world.getNumberTilesPerLandSqrt() - 1) {
-			// south west corner
-			Polygon polygon = new Polygon();
-			polygon.getPoints().addAll(
-							World.TILE_WIDTH / 2.0, 0.0,
-							World.TILE_WIDTH * 1.0, World.TILE_HEIGHT / 2.0,
-							World.TILE_WIDTH / 2.0, World.TILE_HEIGHT * 1.0,
-							0.0, World.TILE_HEIGHT / 2.0);
-			polygon.setStrokeType(StrokeType.INSIDE);
-			polygon.getStrokeDashArray().addAll(1.0, 2.0);
-			polygon.setStroke(Color.BLACK);
-			polygon.setStrokeWidth(1.0);
-			polygon.setFill(Color.TRANSPARENT);
-			return polygon;
+			// northeast corner
+			Group lines = new Group();
+			lines.getChildren().addAll(createNorthBorder(), createEastBorder());
+			return lines;
+		} else if (x == 0 && y == world.getNumberTilesPerLandSqrt() - 1 && land.getY() == world.getNumberLandsSqrt() - 1) {
+			// northwest corner
+			Group lines = new Group();
+			lines.getChildren().addAll(createNorthBorder(), createWestBorder());
+			return lines;
+		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == 0 && land.getX() == world.getNumberLandsSqrt() - 1) {
+			// southeast corner
+			Group lines = new Group();
+			lines.getChildren().addAll(createEastBorder(), createSouthBorder());
+			return lines;
+		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == world.getNumberTilesPerLandSqrt() - 1 &&
+						land.getX() == world.getNumberLandsSqrt() - 1 && land.getY() == world.getNumberLandsSqrt() - 1) {
+			// southwest corner
+			Group lines = new Group();
+			lines.getChildren().addAll(createWestBorder(), createSouthBorder());
+			return lines;
 		} else if (x % world.getNumberTilesPerLandSqrt() == 0) {
-			// northern border
-			Line line = new Line();
-			line.setStartX(0.0);
-			line.setStartY(World.TILE_HEIGHT / 2.0);
-			line.setEndX(World.TILE_WIDTH / 2.0);
-			line.setEndY(0.0);
-			line.getStrokeDashArray().addAll(1.0, 2.0);
-			line.setStroke(Color.WHITE);
-			line.setStrokeWidth(1.0);
-			line.setFill(Color.TRANSPARENT);
-			return line;
-		} else if (x % world.getNumberTilesPerLandSqrt() == world.getNumberTilesPerLandSqrt() - 1) {
-			// southern border
-			Line line = new Line();
-			line.setStartX(World.TILE_WIDTH);
-			line.setStartY(World.TILE_HEIGHT / 2.0);
-			line.setEndX(World.TILE_WIDTH / 2.0);
-			line.setEndY(World.TILE_HEIGHT);
-			line.getStrokeDashArray().addAll(1.0, 2.0);
-			line.setStroke(Color.WHITE);
-			line.setStrokeWidth(1.0);
-			line.setFill(Color.TRANSPARENT);
-			return line;
+			return createNorthBorder();
+		} else if (land.getX() == world.getNumberLandsSqrt() - 1 && x % world.getNumberTilesPerLandSqrt() == world.getNumberTilesPerLandSqrt() - 1) {
+			return createSouthBorder();
 		} else if (y % world.getNumberTilesPerLandSqrt() == 0) {
-			// eastern border
-			Line line = new Line();
-			line.setStartX(World.TILE_WIDTH / 2.0);
-			line.setStartY(World.TILE_HEIGHT);
-			line.setEndX(World.TILE_WIDTH);
-			line.setEndY(World.TILE_HEIGHT / 2.0);
-			line.getStrokeDashArray().addAll(1.0, 2.0);
-			line.setStroke(Color.WHITE);
-			line.setStrokeWidth(1.0);
-			line.setFill(Color.TRANSPARENT);
-			return line;
-		} else if (y %  world.getNumberTilesPerLandSqrt() ==  world.getNumberTilesPerLandSqrt() - 1) {
-			// western border
-			Line line = new Line();
-			line.setStartX(World.TILE_WIDTH / 2.0);
-			line.setStartY(World.TILE_HEIGHT);
-			line.setEndX(0.0);
-			line.setEndY(World.TILE_HEIGHT / 2.0);
-			line.getStrokeDashArray().addAll(1.0, 2.0);
-			line.setStroke(Color.WHITE);
-			line.setStrokeWidth(1.0);
-			line.setFill(Color.TRANSPARENT);
-			return line;
+			return createEastBorder();
+		} else if (land.getY() == world.getNumberLandsSqrt() - 1 && y %  world.getNumberTilesPerLandSqrt() ==  world.getNumberTilesPerLandSqrt() - 1) {
+			return createWestBorder();
 		}
 		return null;
+	}
+
+	private Line createNorthBorder() {
+		return createLine(0.0, World.TILE_HEIGHT / 2.0, World.TILE_WIDTH / 2.0, 0.0);
+	}
+
+	private Line createEastBorder() {
+		return createLine(World.TILE_WIDTH / 2.0, 0.0, World.TILE_WIDTH, World.TILE_HEIGHT / 2.0);
+	}
+
+	private Line createSouthBorder() {
+		return createLine(World.TILE_WIDTH, World.TILE_HEIGHT / 2.0, World.TILE_WIDTH / 2.0, World.TILE_HEIGHT);
+	}
+
+	private Line createWestBorder() {
+		return createLine(World.TILE_WIDTH / 2.0, World.TILE_HEIGHT, 0.0, World.TILE_HEIGHT / 2.0);
+	}
+
+	private Line createLine(double startX, double startY, double endX, double endY) {
+		Line line = new Line();
+		line.setStartX(startX);
+		line.setStartY(startY);
+		line.setEndX(endX);
+		line.setEndY(endY);
+		line.getStrokeDashArray().addAll(1.0, 4.0);
+		line.setStroke(Color.rgb(200, 200, 200));
+		line.setStrokeWidth(1.0);
+		line.setFill(Color.TRANSPARENT);
+		return line;
 	}
 }

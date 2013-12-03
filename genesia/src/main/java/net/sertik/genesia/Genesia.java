@@ -13,6 +13,7 @@ import net.sertik.genesia.resource.PolygonResourceLoader;
 import net.sertik.genesia.render.Renderer;
 import net.sertik.genesia.render.QuadTreeRenderer;
 import net.sertik.genesia.render.SimpleRenderer;
+import net.sertik.genesia.resource.ResourceLoader;
 import net.sertik.genesia.screen.AskPlayerName;
 import net.sertik.genesia.screen.GameSelection;
 import net.sertik.genesia.screen.MainGame;
@@ -87,11 +88,10 @@ public class Genesia extends Application {
 
   public void askNextPlayerName(int player) {
     if (player == 3 || game.getPlayers().get(player).getComputer()) {
+//			ResourceLoader resourceLoader = new PolygonResourceLoader(game.getWorld());
+			ResourceLoader resourceLoader = new ImageResourceLoader(game.getWorld());
 //      Renderer renderer = new SimpleRenderer();
-      Renderer renderer = new QuadTreeRenderer();
-      renderer.setWorld(game.getWorld());
-      renderer.setResourceLoader(new PolygonResourceLoader(game.getWorld()));
-//      renderer.setResourceLoader(new ImageResourceLoader(game.getWorld()));
+			Renderer renderer = new QuadTreeRenderer(resourceLoader, game.getWorld());
 
       MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
       mainGame.setRenderer(renderer);
