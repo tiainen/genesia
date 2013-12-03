@@ -42,6 +42,8 @@ public class ImageResourceLoader extends ResourceLoader {
 			Image image;
 			if ("tree".equals(object.getName())) {
 				image = Assets.getTile(Assets.IMAGE_TILES_SPRING_TREE_01);
+			} else if ("flag".equals(object.getName())) {
+				image = Assets.getTile(Assets.IMAGE_TILES_SPRING_FLAG);
 			} else {
 				if (rand.nextBoolean()) {
 					image = Assets.getTile(Assets.IMAGE_TILES_SPRING_GRASS_01);
