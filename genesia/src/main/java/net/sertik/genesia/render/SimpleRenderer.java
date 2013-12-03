@@ -14,12 +14,13 @@ import net.sertik.genesia.ui.TileNode;
  * @author Joeri
  */
 public class SimpleRenderer extends Renderer {
+
 	public SimpleRenderer(ResourceLoader resourceLoader, World world) {
 		super(resourceLoader, world);
 	}
 
-  @Override
-  public void renderTiles(Group container, double width, double height) {
+	@Override
+	public void renderTiles(Group container, double width, double height) {
 		if (container.getChildren().isEmpty()) {
 			List<Node> nodes = new LinkedList<>();
 			for (int i = 0; i < world.getSizeSqrt(); i++) {
@@ -36,5 +37,5 @@ public class SimpleRenderer extends Renderer {
 
 			container.getChildren().addAll(nodes);
 		}
-  }
+	}
 }

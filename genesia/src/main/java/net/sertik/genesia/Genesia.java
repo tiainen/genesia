@@ -23,88 +23,89 @@ import net.sertik.genesia.screen.MainGame;
  * @author joeri
  */
 public class Genesia extends Application {
-  private Game game;
 
-  private double stageInitialX;
-  private double stageInitialY;
-  private double stageInitialWidth;
-  private double stageInitialHeight;
+	private Game game;
 
-  private double screenWidth;
-  private double screenHeight;
+	private double stageInitialX;
+	private double stageInitialY;
+	private double stageInitialWidth;
+	private double stageInitialHeight;
 
-  private Stage stage;
-  private Scene introScene;
-  private Scene mainScene;
+	private double screenWidth;
+	private double screenHeight;
 
-  public static void main(String[] args) {
-    Application.launch(Genesia.class, args);
-  }
+	private Stage stage;
+	private Scene introScene;
+	private Scene mainScene;
 
-  @Override
-  public void start(Stage primaryStage) {
+	public static void main(String[] args) {
+		Application.launch(Genesia.class, args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		DisplayMode defaultDisplayMode = ge.getDefaultScreenDevice().getDisplayMode();
 		screenWidth = defaultDisplayMode.getWidth();
 		screenHeight = defaultDisplayMode.getHeight();
 
-    Assets.initialize();
+		Assets.initialize();
 
-    stage = primaryStage;
-    stage.setTitle("Genesia");
-    stage.setResizable(false);
+		stage = primaryStage;
+		stage.setTitle("Genesia");
+		stage.setResizable(false);
 
-    introScene = new Scene(new GameSelection(this), 640, 400);
-    introScene.getStylesheets().add("net/sertik/genesia/default.css");
+		introScene = new Scene(new GameSelection(this), 640, 400);
+		introScene.getStylesheets().add("net/sertik/genesia/default.css");
 
-    mainScene = new Scene(new Group(), screenWidth - 200, screenHeight - 200);
+		mainScene = new Scene(new Group(), screenWidth - 200, screenHeight - 200);
 
-    stage.setScene(introScene);
-    stage.show();
+		stage.setScene(introScene);
+		stage.show();
 
-    stageInitialX = stage.getX();
-    stageInitialY = stage.getY();
-    stageInitialWidth = stage.getWidth();
-    stageInitialHeight = stage.getHeight();
-  }
+		stageInitialX = stage.getX();
+		stageInitialY = stage.getY();
+		stageInitialWidth = stage.getWidth();
+		stageInitialHeight = stage.getHeight();
+	}
 
-  public Game getGame() {
-    return game;
-  }
+	public Game getGame() {
+		return game;
+	}
 
-  public void setGame(Game game) {
-    this.game = game;
-    if (this.game == null) {
-      stage.setX(stageInitialX);
-      stage.setY(stageInitialY);
-      stage.setWidth(stageInitialWidth);
-      stage.setHeight(stageInitialHeight);
+	public void setGame(Game game) {
+		this.game = game;
+		if (this.game == null) {
+			stage.setX(stageInitialX);
+			stage.setY(stageInitialY);
+			stage.setWidth(stageInitialWidth);
+			stage.setHeight(stageInitialHeight);
 			introScene.setRoot(new GameSelection(this));
-      stage.setScene(introScene);
-    } else {
-      askNextPlayerName(0);
-    }
-  }
+			stage.setScene(introScene);
+		} else {
+			askNextPlayerName(0);
+		}
+	}
 
-  public void askNextPlayerName(int player) {
-    if (player == 3 || game.getPlayers().get(player).getComputer()) {
+	public void askNextPlayerName(int player) {
+		if (player == 3 || game.getPlayers().get(player).getComputer()) {
 //			ResourceLoader resourceLoader = new PolygonResourceLoader(game.getWorld());
 			ResourceLoader resourceLoader = new ImageResourceLoader(game.getWorld());
 //      Renderer renderer = new SimpleRenderer();
 			Renderer renderer = new QuadTreeRenderer(resourceLoader, game.getWorld());
 
-      MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
-      mainGame.setRenderer(renderer);
+			MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
+			mainGame.setRenderer(renderer);
 
-      mainGame.render();
-      mainScene.setRoot(mainGame);
-      stage.setX(100);
-      stage.setY(100);
-      stage.setWidth(screenWidth - 200);
-      stage.setHeight(screenHeight - 200);
-      stage.setScene(mainScene);
-    } else {
-      introScene.setRoot(new AskPlayerName(this, game.getPlayers().get(player), player));
-    }
-  }
+			mainGame.render();
+			mainScene.setRoot(mainGame);
+			stage.setX(100);
+			stage.setY(100);
+			stage.setWidth(screenWidth - 200);
+			stage.setHeight(screenHeight - 200);
+			stage.setScene(mainScene);
+		} else {
+			introScene.setRoot(new AskPlayerName(this, game.getPlayers().get(player), player));
+		}
+	}
 }

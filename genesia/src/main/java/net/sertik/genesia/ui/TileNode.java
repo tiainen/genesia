@@ -8,6 +8,7 @@ import net.sertik.genesia.entity.Tile;
  * @author Skyora
  */
 public class TileNode extends Group {
+
 	private Tile tile;
 
 	public TileNode(Tile tile) {

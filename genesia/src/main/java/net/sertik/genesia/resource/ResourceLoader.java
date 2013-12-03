@@ -15,6 +15,7 @@ import net.sertik.genesia.ui.TileNode;
  * @author joeri
  */
 public abstract class ResourceLoader {
+
 	private final World world;
 
 	public ResourceLoader(World world) {
@@ -27,8 +28,8 @@ public abstract class ResourceLoader {
 
 	public abstract Node createResource(GameObject gameObject);
 
-  public TileNode createResource(Tile tile) {
-		if (! tile.getObjects().isEmpty()) {
+	public TileNode createResource(Tile tile) {
+		if (!tile.getObjects().isEmpty()) {
 			TileNode tileNode = new TileNode(tile);
 			for (GameObject gameObject : tile.getObjects()) {
 				tileNode.getChildren().add(createResource(gameObject));
@@ -42,7 +43,6 @@ public abstract class ResourceLoader {
 			return tileNode;
 		}
 
-
 		return null;
 	}
 
@@ -53,7 +53,8 @@ public abstract class ResourceLoader {
 	 * @param x the x coordinate of the tile within the land
 	 * @param y the y coordinate of the tile within the land
 	 * @param land the land where the tile belongs to
-	 * @return the lines required to draw the border of tile at the specified coordinates
+	 * @return the lines required to draw the border of tile at the specified
+	 * coordinates
 	 */
 	private Node createLandBorder(int x, int y, Land land) {
 		if (x == 0 && y == 0) {
@@ -71,8 +72,8 @@ public abstract class ResourceLoader {
 			Group lines = new Group();
 			lines.getChildren().addAll(createEastBorder(), createSouthBorder());
 			return lines;
-		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == world.getNumberTilesPerLandSqrt() - 1 &&
-						land.getX() == world.getNumberLandsSqrt() - 1 && land.getY() == world.getNumberLandsSqrt() - 1) {
+		} else if (x == world.getNumberTilesPerLandSqrt() - 1 && y == world.getNumberTilesPerLandSqrt() - 1
+						&& land.getX() == world.getNumberLandsSqrt() - 1 && land.getY() == world.getNumberLandsSqrt() - 1) {
 			// southwest corner
 			Group lines = new Group();
 			lines.getChildren().addAll(createWestBorder(), createSouthBorder());
@@ -83,7 +84,7 @@ public abstract class ResourceLoader {
 			return createSouthBorder();
 		} else if (y % world.getNumberTilesPerLandSqrt() == 0) {
 			return createEastBorder();
-		} else if (land.getY() == world.getNumberLandsSqrt() - 1 && y %  world.getNumberTilesPerLandSqrt() ==  world.getNumberTilesPerLandSqrt() - 1) {
+		} else if (land.getY() == world.getNumberLandsSqrt() - 1 && y % world.getNumberTilesPerLandSqrt() == world.getNumberTilesPerLandSqrt() - 1) {
 			return createWestBorder();
 		}
 		return null;

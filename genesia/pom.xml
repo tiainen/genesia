@@ -11,8 +11,8 @@
 	<url>http://sertik.net/games/genesia</url>
 
 	<build>
-    <plugins>
-      <plugin>
+		<plugins>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>

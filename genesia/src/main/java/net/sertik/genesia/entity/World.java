@@ -10,18 +10,19 @@ import java.util.List;
  * @author joeri
  */
 public class World {
-  public static final int TILE_WIDTH = 64;
-  public static final int TILE_HEIGHT = 32;
 
-  private int numberLands;
-  private int numberTilesPerLand;
+	public static final int TILE_WIDTH = 64;
+	public static final int TILE_HEIGHT = 32;
 
-  private int sizeSqrt;
-  private int numberLandsSqrt;
-  private int numberTilesPerLandSqrt;
+	private int numberLands;
+	private int numberTilesPerLand;
 
-  private String name;
-  private List<Land> lands = new LinkedList<>();
+	private int sizeSqrt;
+	private int numberLandsSqrt;
+	private int numberTilesPerLandSqrt;
+
+	private String name;
+	private List<Land> lands = new LinkedList<>();
 
 	private int hoverWorldX = -1;
 	private int hoverWorldY = -1;
@@ -31,38 +32,38 @@ public class World {
 	 * land.
 	 *
 	 * @param numberLands
-	 * @param numberTilesPerLand 
+	 * @param numberTilesPerLand
 	 */
-  public World(int numberLands, int numberTilesPerLand) {
-    this.numberLands = numberLands;
-    this.numberTilesPerLand = numberTilesPerLand;
-    this.sizeSqrt = (int) Math.sqrt(numberLands * numberTilesPerLand);
-    this.numberLandsSqrt = (int) Math.sqrt(numberLands);
-    this.numberTilesPerLandSqrt = (int) Math.sqrt(numberTilesPerLand);
-  }
+	public World(int numberLands, int numberTilesPerLand) {
+		this.numberLands = numberLands;
+		this.numberTilesPerLand = numberTilesPerLand;
+		this.sizeSqrt = (int) Math.sqrt(numberLands * numberTilesPerLand);
+		this.numberLandsSqrt = (int) Math.sqrt(numberLands);
+		this.numberTilesPerLandSqrt = (int) Math.sqrt(numberTilesPerLand);
+	}
 
 	/**
 	 * Returns a list of Lands that are part of this World.
 	 *
 	 * @return a list of lands that are part of the world
 	 */
-  public List<Land> getLands() {
-    return lands;
-  }
+	public List<Land> getLands() {
+		return lands;
+	}
 
-  public void setLands(List<Land> lands) {
+	public void setLands(List<Land> lands) {
 		if (lands.size() == numberLands) {
 			this.lands = lands;
 		}
-  }
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * Returns the total number of lands in this world.
@@ -91,15 +92,15 @@ public class World {
 	}
 
 	/**
-	 * Returns the square root of the total number of tiles that will be
-	 * available in the entire world.
+	 * Returns the square root of the total number of tiles that will be available
+	 * in the entire world.
 	 *
 	 * @return the square root of the total number of tiles of all lands in this
 	 * world
 	 */
-  public int getSizeSqrt() {
-    return sizeSqrt;
-  }
+	public int getSizeSqrt() {
+		return sizeSqrt;
+	}
 
 	/**
 	 * Returns the square root of the number of lands in this world.
@@ -127,16 +128,16 @@ public class World {
 	 * @return true if the provided coordinates lie within the world bounds
 	 */
 	public boolean isPointWithinBounds(int worldX, int worldY) {
-		return worldX >= 0 &&
-						worldY >= 0 &&
-						worldX < sizeSqrt &&
-						worldY < sizeSqrt;
+		return worldX >= 0
+						&& worldY >= 0
+						&& worldX < sizeSqrt
+						&& worldY < sizeSqrt;
 	}
 
 	/**
-	 * Returns the x-coordinate of the tile where the mouse is currently
-	 * hovering over in world coordinates.
-	 * 
+	 * Returns the x-coordinate of the tile where the mouse is currently hovering
+	 * over in world coordinates.
+	 *
 	 * @return the x-coordinate in the world of the tile that is being hovered
 	 */
 	public int getHoverWorldX() {
@@ -144,9 +145,9 @@ public class World {
 	}
 
 	/**
-	 * Returns the y-coordinate of the tile where the mouse is currently
-	 * hovering over in world coordinates.
-	 * 
+	 * Returns the y-coordinate of the tile where the mouse is currently hovering
+	 * over in world coordinates.
+	 *
 	 * @return the y-coordinate in the world of the tile that is being hovered
 	 */
 	public int getHoverWorldY() {
@@ -180,11 +181,11 @@ public class World {
 	 * @param worldY the y world coordinate
 	 * @return the tile located at these coordinates
 	 */
-  public Tile getTile(int worldX, int worldY) {
-    int landX = worldX / numberTilesPerLandSqrt;
-    int landY = worldY / numberTilesPerLandSqrt;
-    int tileX = worldX % numberTilesPerLandSqrt;
-    int tileY = worldY % numberTilesPerLandSqrt;
-    return lands.get(landX * numberLandsSqrt + landY).getTiles().get(tileX * numberTilesPerLandSqrt + tileY);
-  }
+	public Tile getTile(int worldX, int worldY) {
+		int landX = worldX / numberTilesPerLandSqrt;
+		int landY = worldY / numberTilesPerLandSqrt;
+		int tileX = worldX % numberTilesPerLandSqrt;
+		int tileY = worldY % numberTilesPerLandSqrt;
+		return lands.get(landX * numberLandsSqrt + landY).getTiles().get(tileX * numberTilesPerLandSqrt + tileY);
+	}
 }

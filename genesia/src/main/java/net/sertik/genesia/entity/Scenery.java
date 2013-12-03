@@ -8,22 +8,23 @@ package net.sertik.genesia.entity;
  * @author Joeri
  */
 public class Scenery implements GameObject {
+
 	/**
-	 * This is a special Scenery object that is used to identify which
-	 * tile is currently hovered over by the mouse.
+	 * This is a special Scenery object that is used to identify which tile is
+	 * currently hovered over by the mouse.
 	 */
 	public static final Scenery HOVER_TILE = new Scenery("SYSTEM_HoverTile");
 
-  private String name;
+	private String name;
 
-  public Scenery(String name) {
-    this.name = name;
-  }
+	public Scenery(String name) {
+		this.name = name;
+	}
 
-  @Override
-  public String getName() {
-    return name;
-  }
+	@Override
+	public String getName() {
+		return name;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

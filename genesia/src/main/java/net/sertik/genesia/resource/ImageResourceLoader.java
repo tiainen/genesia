@@ -17,6 +17,7 @@ import net.sertik.genesia.media.Assets;
  * @author joeri
  */
 public class ImageResourceLoader extends ResourceLoader {
+
 	private Random rand = new Random();
 
 	public ImageResourceLoader(World world) {
@@ -24,7 +25,7 @@ public class ImageResourceLoader extends ResourceLoader {
 	}
 
 	@Override
-  public Node createResource(GameObject object) {
+	public Node createResource(GameObject object) {
 		if (object.equals(Scenery.HOVER_TILE)) {
 			Polygon polygon = new Polygon();
 			polygon.getPoints().addAll(
@@ -54,8 +55,8 @@ public class ImageResourceLoader extends ResourceLoader {
 
 			ImageView imageView = new ImageView();
 			imageView.setImage(image);
-		  imageView.setTranslateY(-image.getHeight() + World.TILE_HEIGHT);
-	    return imageView;
+			imageView.setTranslateY(-image.getHeight() + World.TILE_HEIGHT);
+			return imageView;
 		}
-  }
+	}
 }

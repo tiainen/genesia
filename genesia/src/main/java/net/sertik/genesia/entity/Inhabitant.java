@@ -3,16 +3,18 @@ package net.sertik.genesia.entity;
 /**
  * An Inhabitant defines a settler that comes to live in a certain Land. In
  * order for an settler to become an inhabitant of a land, this land will need
- * to fulfill a few criteria. For instance, it requires a vacant house,
- * plenty of food and water, no epidemics, etc.
- * A second way to attract inhabitants is by natural birth, when two
- * inhabitants decide to live together and have babies. After a certain age,
- * these children will become old enough to be able to start a job.
+ * to fulfill a few criteria. For instance, it requires a vacant house, plenty
+ * of food and water, no epidemics, etc. A second way to attract inhabitants is
+ * by natural birth, when two inhabitants decide to live together and have
+ * babies. After a certain age, these children will become old enough to be able
+ * to start a job.
  *
  * @author joeri
  */
 public class Inhabitant {
+
 	public enum Trade {
+
 		SETTLER,
 		ARCHITECT,
 		BLACKSMITH,
@@ -29,8 +31,8 @@ public class Inhabitant {
 
 	/**
 	 * Returns the age in years of an inhabitant. At a certain age they will die
-	 * and young and older people will also be more vulnerable for diseases.
-	 * The age also defines when an inhabitant is eligible for a job.
+	 * and young and older people will also be more vulnerable for diseases. The
+	 * age also defines when an inhabitant is eligible for a job.
 	 *
 	 * @return the age of the inhabitant
 	 */
@@ -43,8 +45,8 @@ public class Inhabitant {
 	}
 
 	/**
-	 * Returns the house this inhabitant lives in and therefor also defines
-	 * in which land they live in.
+	 * Returns the house this inhabitant lives in and therefor also defines in
+	 * which land they live in.
 	 *
 	 * @return the house of the inhabitant
 	 */

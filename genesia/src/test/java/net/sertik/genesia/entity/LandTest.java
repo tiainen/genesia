@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
  * @author Skyora
  */
 public class LandTest {
+
 	@Test
 	public void testEquals() {
 		Land land1 = new Land();

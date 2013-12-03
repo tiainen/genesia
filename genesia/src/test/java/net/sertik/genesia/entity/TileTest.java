@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
  * @author Skyora
  */
 public class TileTest {
+
 	@Test
 	public void testEquals() {
 		Tile tile1 = new Tile();
