@@ -26,7 +26,7 @@ public class AskPlayerName extends StackPane {
 
     final ImageView background = new ImageView();
     background.setOpacity(0.3);
-    background.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
+    background.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
 
     VBox vbox = new VBox();
     vbox.setAlignment(Pos.CENTER);
@@ -34,7 +34,7 @@ public class AskPlayerName extends StackPane {
     vbox.setPadding(new Insets(25, 25, 25, 25));
 
     Label label = new Label("Enter your name Player " + (position + 1));
-    label.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+    label.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
     label.setTextFill(Color.LIGHTGRAY);
 
     final TextField name = new TextField();

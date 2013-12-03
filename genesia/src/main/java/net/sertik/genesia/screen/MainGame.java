@@ -163,10 +163,10 @@ public class MainGame extends Group {
     });
 
     final ImageView mainBackground = new ImageView();
-    mainBackground.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_MAIN_BACKGROUND));
+    mainBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_MAIN_BACKGROUND));
 
 		final ImageView menuBackground = new ImageView();
-    menuBackground.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
+    menuBackground.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_MENU_BACKGROUND));
 
 		selectedTileInfo = new TileWithDescriptionNode();
 		selectedTileInfo.setLayoutX(61.0);

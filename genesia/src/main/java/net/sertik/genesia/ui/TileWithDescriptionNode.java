@@ -22,10 +22,10 @@ public class TileWithDescriptionNode extends VBox {
 		setAlignment(Pos.CENTER);
 
 		landName = new Label("no land\nselected");
-		landName.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+		landName.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
 		landName.setTextAlignment(TextAlignment.CENTER);
 		description = new Label();
-		description.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+		description.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
 
 		tileNodeGroup = new StackPane();
 		tileNodeGroup.setPrefHeight(128.0);		

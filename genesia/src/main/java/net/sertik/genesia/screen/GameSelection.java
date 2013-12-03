@@ -54,7 +54,7 @@ public class GameSelection extends StackPane {
     final ImageView background = new ImageView();
     background.setCursor(Cursor.HAND);
     background.setOpacity(1.0);
-    background.setImage(Assets.getBackgrounds().get(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
+    background.setImage(Assets.getBackground(Assets.IMAGE_SCREENS_GAME_SELECTION_BACKGROUND));
     background.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
@@ -77,13 +77,13 @@ public class GameSelection extends StackPane {
     fadeOutBackground.setNode(outerPane);
 
     Label numberOfPlayersLabel = new Label("NUMBER OF PLAYERS");
-    numberOfPlayersLabel.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+    numberOfPlayersLabel.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
     numberOfPlayersLabel.setTextFill(Color.LIGHTGRAY);
 
     numberOfPlayers = new ToggleGroup();
 
     RadioButton numberOfPlayers1 = new RadioButton("1");
-    numberOfPlayers1.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    numberOfPlayers1.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     numberOfPlayers1.setSelected(true);
     numberOfPlayers1.setUserData(1);
     numberOfPlayers1.setToggleGroup(numberOfPlayers);
@@ -91,14 +91,14 @@ public class GameSelection extends StackPane {
     numberOfPlayers1.setMaxWidth(120);
 
     RadioButton numberOfPlayers2 = new RadioButton("2");
-    numberOfPlayers2.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    numberOfPlayers2.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     numberOfPlayers2.setUserData(2);
     numberOfPlayers2.setToggleGroup(numberOfPlayers);
     numberOfPlayers2.setMinWidth(120);
     numberOfPlayers2.setMaxWidth(120);
 
     RadioButton numberOfPlayers3 = new RadioButton("3");
-    numberOfPlayers3.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    numberOfPlayers3.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     numberOfPlayers3.setUserData(3);
     numberOfPlayers3.setToggleGroup(numberOfPlayers);
 
@@ -113,13 +113,13 @@ public class GameSelection extends StackPane {
     horizontalLine1.setStrokeWidth(2);
 
     Label worldCreationLabel = new Label("CREATION OF THE WORLD");
-    worldCreationLabel.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+    worldCreationLabel.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
     worldCreationLabel.setTextFill(Color.LIGHTGRAY);
 
     worldCreation = new ToggleGroup();
 
     RadioButton worldCreation1 = new RadioButton("1");
-    worldCreation1.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    worldCreation1.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation1.setSelected(true);
     worldCreation1.setUserData(new FlatLandWorldGenerator(0.15));
     worldCreation1.setToggleGroup(worldCreation);
@@ -127,28 +127,28 @@ public class GameSelection extends StackPane {
     worldCreation1.setMaxWidth(120);
 
     RadioButton worldCreation2 = new RadioButton("2");
-    worldCreation2.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    worldCreation2.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation2.setUserData(new FlatLandWorldGenerator(0.3));
     worldCreation2.setToggleGroup(worldCreation);
     worldCreation2.setMinWidth(120);
     worldCreation2.setMaxWidth(120);
 
     RadioButton worldCreation3 = new RadioButton("3");
-    worldCreation3.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    worldCreation3.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation3.setUserData(new FlatLandWorldGenerator(0.45));
     worldCreation3.setToggleGroup(worldCreation);
     worldCreation3.setMinWidth(120);
     worldCreation3.setMaxWidth(120);
 
     RadioButton worldCreation4 = new RadioButton("4");
-    worldCreation4.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    worldCreation4.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation4.setUserData(new FlatLandWorldGenerator(0.6));
     worldCreation4.setToggleGroup(worldCreation);
     worldCreation4.setMinWidth(120);
     worldCreation4.setMaxWidth(120);
 
     RadioButton worldCreation5 = new RadioButton("5");
-    worldCreation5.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    worldCreation5.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     worldCreation5.setUserData(new FlatLandWorldGenerator(0.75));
     worldCreation5.setToggleGroup(worldCreation);
 
@@ -163,20 +163,20 @@ public class GameSelection extends StackPane {
     horizontalLine2.setStrokeWidth(2);
 
     Label gameLevelLabel = new Label("GAME LEVEL");
-    gameLevelLabel.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+    gameLevelLabel.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
     gameLevelLabel.setTextFill(Color.LIGHTGRAY);
 
     gameLevel = new ToggleGroup();
 
     RadioButton gameLevel1 = new RadioButton("BEGINNER");
-    gameLevel1.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    gameLevel1.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     gameLevel1.setUserData(Game.Difficulty.BEGINNER);
     gameLevel1.setToggleGroup(gameLevel);
     gameLevel1.setMinWidth(120);
     gameLevel1.setMaxWidth(120);
 
     RadioButton gameLevel2 = new RadioButton("NORMAL");
-    gameLevel2.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    gameLevel2.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     gameLevel2.setSelected(true);
     gameLevel2.setUserData(Game.Difficulty.NORMAL);
     gameLevel2.setToggleGroup(gameLevel);
@@ -184,7 +184,7 @@ public class GameSelection extends StackPane {
     gameLevel2.setMaxWidth(120);
 
     RadioButton gameLevel3 = new RadioButton("ADVANCED");
-    gameLevel3.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_13));
+    gameLevel3.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_13));
     gameLevel3.setUserData(Game.Difficulty.ADVANCED);
     gameLevel3.setToggleGroup(gameLevel);
 
@@ -194,7 +194,7 @@ public class GameSelection extends StackPane {
     
     Button startNewGame = new Button("NEW GAME");
     VBox.setMargin(startNewGame, new Insets(25, 0, 0, 0));
-    startNewGame.setFont(Assets.getFonts().get(Assets.FONT_COURIERNEW_BOLD_16));
+    startNewGame.setFont(Assets.getFont(Assets.FONT_COURIERNEW_BOLD_16));
     startNewGame.setCursor(Cursor.HAND);
     startNewGame.setOnAction(new EventHandler<ActionEvent>() {
       @Override
