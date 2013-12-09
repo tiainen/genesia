@@ -1,6 +1,5 @@
 package net.sertik.genesia.world;
 
-import com.lodgon.extras.util.StringUtil;
 import java.util.Random;
 import net.sertik.genesia.entity.Land;
 import net.sertik.genesia.entity.Scenery;
@@ -23,7 +22,7 @@ public class FlatLandWorldGenerator implements WorldGenerator {
 	public World generate(int numberLands, int numberTilesPerLand) {
 		World world = new World(numberLands, numberTilesPerLand);
 
-		world.setName(StringUtil.getSecureRandomString(12));
+		world.setName("Genesia");
 
 		int numberLandsSqrt = (int) Math.sqrt(numberLands);
 		int numberTilesSqrt = (int) Math.sqrt(numberTilesPerLand);
@@ -37,7 +36,7 @@ public class FlatLandWorldGenerator implements WorldGenerator {
 				Land land = new Land();
 				land.setX(x);
 				land.setY(y);
-				land.setName(StringUtil.getSecureRandomString(8));
+				land.setName("Judokan");
 				land.setWorld(world);
 
 				for (int lx = 0; lx < numberTilesSqrt; lx++) {
