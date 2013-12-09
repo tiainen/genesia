@@ -38,12 +38,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.lodgon.extras</groupId>
-			<artifactId>lodgon-util</artifactId>
-			<version>1.10</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.3</version>
