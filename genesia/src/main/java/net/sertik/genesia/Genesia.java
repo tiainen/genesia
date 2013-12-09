@@ -59,7 +59,7 @@ public class Genesia extends Application {
 		screenWidth = screenVisualBounds.getWidth();
 		screenHeight = screenVisualBounds.getHeight();
 
-		mainScene = new Scene(new Group(), screenWidth - 200, screenHeight - 200);
+		mainScene = new Scene(new Group(), screenWidth, screenHeight);
 
 		stage.show();
 
@@ -94,15 +94,13 @@ public class Genesia extends Application {
 //      Renderer renderer = new SimpleRenderer();
 			Renderer renderer = new QuadTreeRenderer(resourceLoader, game.getWorld());
 
-			MainGame mainGame = new MainGame(this, screenWidth - 200, screenHeight - 200);
+			MainGame mainGame = new MainGame(this, screenWidth, screenHeight);
 			mainGame.setRenderer(renderer);
 
 			mainGame.render();
 			mainScene.setRoot(mainGame);
-			stage.setX(100);
-			stage.setY(100);
-			stage.setWidth(screenWidth - 200);
-			stage.setHeight(screenHeight - 200);
+			stage.setWidth(screenWidth);
+			stage.setHeight(screenHeight);
 			stage.setScene(mainScene);
 		} else {
 			introScene.setRoot(new AskPlayerName(this, game.getPlayers().get(player), player));
