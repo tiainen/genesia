@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import net.sertik.genesia.entity.Scenery;
 import net.sertik.genesia.entity.World;
 import net.sertik.genesia.resource.ResourceLoader;
+import net.sertik.genesia.util.Coords;
 
 /**
  *
@@ -38,14 +39,15 @@ public abstract class Renderer {
 		renderTiles(container, width, height);
 
 		// render hover tile
-		if (world.getHoverWorldX() != -1 && world.getHoverWorldY() != -1) {
+		Coords hoverWorldCoords = world.getHoverWorldCoords();
+		if (hoverWorldCoords.getX() != -1 && hoverWorldCoords.getY() != -1) {
 			if (hoverTile == null) {
 				hoverTile = resourceLoader.createResource(Scenery.HOVER_TILE);
 				hoverTile.setUserData(new Integer(1));
 				container.getChildren().add(hoverTile);
 			}
-			hoverTile.setLayoutX(World.TILE_WIDTH / 2 * (world.getHoverWorldX() - world.getHoverWorldY()));
-			hoverTile.setLayoutY(World.TILE_HEIGHT / 2 * (world.getHoverWorldX() + world.getHoverWorldY()));
+			hoverTile.setLayoutX(World.TILE_WIDTH / 2 * (hoverWorldCoords.getX() - hoverWorldCoords.getY()));
+			hoverTile.setLayoutY(World.TILE_HEIGHT / 2 * (hoverWorldCoords.getX() + hoverWorldCoords.getY()));
 		}
 	}
 

@@ -1,6 +1,5 @@
 package net.sertik.genesia.screen;
 
-import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -17,6 +16,7 @@ import net.sertik.genesia.media.Assets;
 import net.sertik.genesia.render.Renderer;
 import net.sertik.genesia.ui.OrderedGroup;
 import net.sertik.genesia.ui.TileWithDescriptionNode;
+import net.sertik.genesia.util.Coords;
 
 /**
  *
@@ -93,8 +93,8 @@ public class MainGame extends Group {
 		inputCapture.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
-				if (genesia.getGame().getWorld().setHoverCoords(mapCoords.x, mapCoords.y)) {
+				Coords mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
+				if (genesia.getGame().getWorld().setHoverCoords(mapCoords)) {
 					render();
 				}
 			}
@@ -105,9 +105,9 @@ public class MainGame extends Group {
 			@Override
 			public void handle(MouseEvent me) {
 				if (me.isStillSincePress()) {
-					Point mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
-					if (genesia.getGame().getWorld().isPointWithinBounds(mapCoords.x, mapCoords.y)) {
-						Tile selectedTile = genesia.getGame().getWorld().getTile(mapCoords.x, mapCoords.y);
+					Coords mapCoords = calcMapCoordFromMouseCoord(me.getX(), me.getY());
+					if (genesia.getGame().getWorld().isPointWithinBounds(mapCoords)) {
+						Tile selectedTile = genesia.getGame().getWorld().getTile(mapCoords.getX(), mapCoords.getY());
 						if (selectedTileInfo.getTileNode() == null
 										|| !selectedTile.equals(selectedTileInfo.getTileNode().getTile())) {
 							selectedTileInfo.setTileNode(renderer.getResourceLoader().createResource(selectedTile));
@@ -204,7 +204,7 @@ public class MainGame extends Group {
 		getChildren().addAll(mainBackground, menu, clipContainer, inputCapture);
 	}
 
-	private Point calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
+	private Coords calcMapCoordFromMouseCoord(double mouseX, double mouseY) {
 		double pickX = mouseX - tilesGroup.getTranslateX();
 		double pickY = mouseY - tilesGroup.getTranslateY();
 
@@ -243,7 +243,7 @@ public class MainGame extends Group {
 				break;
 		}
 
-		return new Point(mapX, mapY);
+		return new Coords(mapX, mapY);
 	}
 
 	public void setRenderer(Renderer renderer) {

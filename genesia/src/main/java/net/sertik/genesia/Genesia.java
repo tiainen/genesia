@@ -1,10 +1,10 @@
 package net.sertik.genesia;
 
-import java.awt.DisplayMode;
-import java.awt.GraphicsEnvironment;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import net.sertik.genesia.entity.Game;
 import net.sertik.genesia.media.Assets;
@@ -44,11 +44,6 @@ public class Genesia extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		DisplayMode defaultDisplayMode = ge.getDefaultScreenDevice().getDisplayMode();
-		screenWidth = defaultDisplayMode.getWidth();
-		screenHeight = defaultDisplayMode.getHeight();
-
 		Assets.initialize();
 
 		stage = primaryStage;
@@ -58,9 +53,14 @@ public class Genesia extends Application {
 		introScene = new Scene(new GameSelection(this), 640, 400);
 		introScene.getStylesheets().add("net/sertik/genesia/default.css");
 
+		stage.setScene(introScene);
+
+		Rectangle2D screenVisualBounds = Screen.getPrimary().getVisualBounds();
+		screenWidth = screenVisualBounds.getWidth();
+		screenHeight = screenVisualBounds.getHeight();
+
 		mainScene = new Scene(new Group(), screenWidth - 200, screenHeight - 200);
 
-		stage.setScene(introScene);
 		stage.show();
 
 		stageInitialX = stage.getX();
