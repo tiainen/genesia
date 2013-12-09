@@ -2,6 +2,7 @@ package net.sertik.genesia.entity;
 
 import java.util.LinkedList;
 import java.util.List;
+import net.sertik.genesia.util.Coords;
 
 /**
  * The world is the root object of the game. It consists of a series of lands
@@ -24,8 +25,7 @@ public class World {
 	private String name;
 	private List<Land> lands = new LinkedList<>();
 
-	private int hoverWorldX = -1;
-	private int hoverWorldY = -1;
+	private Coords hoverWorldCoords = new Coords(-1, -1);
 
 	/**
 	 * Constructs a new World with the specified number of lands and tiles per
@@ -123,52 +123,39 @@ public class World {
 	/**
 	 * Checks whether the provided coordinates are within the bounds of the world.
 	 *
-	 * @param worldX the x coordinate
-	 * @param worldY the y coordinate
+	 * @param coords the coordinates
 	 * @return true if the provided coordinates lie within the world bounds
 	 */
-	public boolean isPointWithinBounds(int worldX, int worldY) {
-		return worldX >= 0
-						&& worldY >= 0
-						&& worldX < sizeSqrt
-						&& worldY < sizeSqrt;
+	public boolean isPointWithinBounds(Coords coords) {
+		return coords.getX() >= 0
+						&& coords.getY() >= 0
+						&& coords.getX() < sizeSqrt
+						&& coords.getY() < sizeSqrt;
 	}
 
 	/**
-	 * Returns the x-coordinate of the tile where the mouse is currently hovering
+	 * Returns the coordinates of the tile where the mouse is currently hovering
 	 * over in world coordinates.
 	 *
-	 * @return the x-coordinate in the world of the tile that is being hovered
+	 * @return the coordinates in the world of the tile that is being hovered
 	 */
-	public int getHoverWorldX() {
-		return hoverWorldX;
+	public Coords getHoverWorldCoords() {
+		return hoverWorldCoords;
 	}
 
 	/**
-	 * Returns the y-coordinate of the tile where the mouse is currently hovering
-	 * over in world coordinates.
+	 * Sets the coordinates of the tile where the mouse is currently hovering
+	 * over. The coordinates are world coordinates.
 	 *
-	 * @return the y-coordinate in the world of the tile that is being hovered
+	 * @param coords the world coordinates of the hovered tile
+	 * @return true when the coordinates were different from the coordinates at
+	 * the beginning of calling this method
 	 */
-	public int getHoverWorldY() {
-		return hoverWorldY;
-	}
-
-	/**
-	 * Sets the current x- and y-coordinates of the tile where the mouse is
-	 * currently hovering over. The coordinates are world coordinates.
-	 *
-	 * @param worldX the x world coordinate of the hovered tile
-	 * @param worldY the y world coordinate of the hovered tile
-	 * @return true when the x- or y-coordinate were different than before this
-	 * call
-	 */
-	public boolean setHoverCoords(int worldX, int worldY) {
+	public boolean setHoverCoords(Coords coords) {
 		boolean changed = false;
-		if (isPointWithinBounds(worldX, worldY)) {
-			changed = worldX != this.hoverWorldX || worldY != this.hoverWorldY;
-			this.hoverWorldX = worldX;
-			this.hoverWorldY = worldY;
+		if (isPointWithinBounds(coords)) {
+			changed = ! coords.equals(this.hoverWorldCoords);
+			this.hoverWorldCoords = coords;
 		}
 		return changed;
 	}
