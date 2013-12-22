@@ -260,10 +260,6 @@ public class MainGame extends Group {
 	}
 
 	public void render() {
-		if (renderer == null) {
-			throw new RuntimeException("No Renderer specified.");
-		}
-
 		renderer.render(tilesGroup, screenWidth, screenHeight);
 	}
 }
